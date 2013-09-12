@@ -29,3 +29,4 @@ extern void InitIC2_Slave (uint8_t adr);
 #define SW_LAST_ACK     0xC8
 
 #endif
+

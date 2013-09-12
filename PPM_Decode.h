@@ -6,8 +6,8 @@ extern volatile unsigned char PPM_Timeout, anz_ppm_werte;
 void InitPPM(void);
 
 
-#define INT0_ENABLE      GIMSK |= 0x40          
-#define INT0_DISABLE     GIMSK &= ~0x40          
+#define INT0_ENABLE      GIMSK |= 0x40           
+#define INT0_DISABLE     GIMSK &= ~0x40           
 #define TIM0_START       TIMSK |= 0x01                        
 #define TIM0_STOPP       TIMSK &= ~0x01                        
 #define ICP_INT_ENABLE   TIMSK |= 0x20                        
@@ -24,3 +24,4 @@ void InitPPM(void);
 #define TIMER0_PRESCALER  TCCR0
 #define ICP_POS_FLANKE    TCCR1B |= (1<<ICES1)
 #define ICP_NEG_FLANKE    TCCR1B &= ~(1<<ICES1)
+

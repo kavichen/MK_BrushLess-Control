@@ -1,6 +1,6 @@
 /*
-   For backwards compatibility only.
- 
+   For backwards compatibility only. 
+  
    Ingo Busker   ingo@mikrocontroller.com
 */
 
@@ -44,3 +44,4 @@
 #ifndef PRG_RDB
 #define PRG_RDB pgm_read_byte
 #endif
+

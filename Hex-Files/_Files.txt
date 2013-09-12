@@ -1,0 +1,19 @@
+
+Dateien:
+--------
+BrushLess-Ctrl_V0_xx_10A.hex                -->  Hexfile für BL-Ctrl V1.1 und 1.2
+BootLoader_MEGA8_8MHZ_Vx_y.hex              -->  Bootloader für BL-Ctrl (Fusebits beachten !)
+
+BrushLess-Ctrl_ADR_Vx_xx.hex          		-->  Software für ADR=Motorposition(1 bis 4) 
+BrushLess-Ctrl_ADR_Vx_xx_10A.hex          	-->  Software für ADR=Motorposition(1 bis 4) 10A-Stromgrenze 
+
+
+Testprogramme (Achtung: Motor läuft an!)
+-----------------------------------------
+Test_Manuell_BrushLess-Ctrl_Vx_xx.hex       --> Regler läuft ungeregelt mit fester Frequenz
+Test_Schub_BrushLess-Ctrl_Vx_xx.hex         --> Regler läuft mit unterschiedlichen Leistungen
+Test_Sollwert_Fix_BrushLess-Ctrl_Vx_xx.hex  --> Regler läuft fix mit 7,8% PWM
+
+Sonstiges:
+----------
+Fuses_Mega8_8MHZ_*.gif --> Fusebits von Ponyprog (mit und ohne Bootloader)

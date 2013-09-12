@@ -1,0 +1,4 @@
+-G "C:\WinAVR\Projects\Flug\BL_MC_0_14\"
+-err "avr.err"
+-r
+-f "avr.mak"

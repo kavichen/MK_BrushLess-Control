@@ -25,14 +25,14 @@ void AdConvert(void)
   ADMUX  =  0x06 | IntRef;  // Kanal 6
   SFIOR  =  0x00;  // Analog Comperator aus
   ADCSRA =  0xD3;  // Converter ein, single
-  ADCSRA |= 0x10;  // Ready lÃ¶schen
+  ADCSRA |= 0x10;  // Ready löschen
   ADMUX  =  0x06 | IntRef;  // Kanal 6
   ADCSRA |= 0x40;  // Start
   while (((ADCSRA & 0x10) == 0));
-  ADMUX = sense;   // zurÃ¼ck auf den Sense-Kanal
+  ADMUX = sense;   // zurück auf den Sense-Kanal
   i = ADCW * 4;
 //  if(i > 300) i = 300;
-  Strom = (i + Strom * 7) / 8;
+  Strom = (i + Strom * 7) / 8; 
   if (Strom_max < Strom) Strom_max = Strom;
   ADCSRA = 0x00;  
   SFIOR = 0x08;  // Analog Comperator ein
@@ -51,11 +51,11 @@ unsigned int MessAD(unsigned char channel)
   ADMUX  =  channel;  // Kanal 6
   SFIOR  =  0x00;  // Analog Comperator aus
   ADCSRA =  0xD3;  // Converter ein, single
-  ADCSRA |= 0x10;  // Ready lÃ¶schen
+  ADCSRA |= 0x10;  // Ready löschen
   ADMUX  =  channel;  // Kanal 6
   ADCSRA |= 0x40;  // Start
   while (((ADCSRA & 0x10) == 0));
-  ADMUX = sense;   // zurÃ¼ck auf den Sense-Kanal
+  ADMUX = sense;   // zurück auf den Sense-Kanal
   ADCSRA = 0x00;  
   SFIOR = 0x08;  // Analog Comperator ein
 return(ADCW);
@@ -70,7 +70,7 @@ void FastADConvert(void)
   i = MessAD(6) * 4;
 //  i = ADCW * 4;
   if(i > 200) i = 200;
-  Strom = i;//(i + Strom * 1) / 2;
+  Strom = i;//(i + Strom * 1) / 2; 
   if (Strom_max < Strom) Strom_max = Strom;
   ADCSRA = 0x00;  
   SFIOR = 0x08;  // Analog Comperator ein

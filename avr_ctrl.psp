@@ -1,0 +1,16 @@
+;Codewright Project Space File (do not remove or modify this line)
+[State]
+StateWindowFrame=10,18,939,1018,0x43097fca
+ProjSpaceFlags=0x00000000, 1
+ProjViewSetShow=Abb
+
+[Project]
+ConfigSetUserWorkspace=''
+ConfigSetUserWorkspaceParser=''
+ConfigSetUserWorkspaceTimeStamp=0
+ConfigSetUserWorkspaceAutoSync=0
+
+[Project.".\avr.pjt"]
+
+[Project."..\Flight-Ctrl_V0_05\AVR.pjt"]
+

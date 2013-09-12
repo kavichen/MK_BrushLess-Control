@@ -1,0 +1,764 @@
+Archive member included because of file (symbol)
+
+C:/WinAVR/lib/gcc/avr/3.4.5/avr5\libgcc.a(_udivmodsi4.o)
+                              printf_P.o (__udivmodsi4)
+C:/WinAVR/lib/gcc/avr/3.4.5/avr5\libgcc.a(_copy_data.o)
+                              main.o (__do_copy_data)
+C:/WinAVR/lib/gcc/avr/3.4.5/avr5\libgcc.a(_clear_bss.o)
+                              main.o (__do_clear_bss)
+C:/WinAVR/bin/../lib/gcc/avr/3.4.5/../../../../avr/lib/avr5\libc.a(memchr.o)
+                              printf_P.o (memchr)
+C:/WinAVR/bin/../lib/gcc/avr/3.4.5/../../../../avr/lib/avr5\libc.a(fdevopen.o)
+                              uart.o (fdevopen)
+C:/WinAVR/bin/../lib/gcc/avr/3.4.5/../../../../avr/lib/avr5\libc.a(iob.o)
+                              C:/WinAVR/bin/../lib/gcc/avr/3.4.5/../../../../avr/lib/avr5\libc.a(fdevopen.o) (__iob)
+C:/WinAVR/bin/../lib/gcc/avr/3.4.5/../../../../avr/lib/avr5\libc.a(calloc.o)
+                              C:/WinAVR/bin/../lib/gcc/avr/3.4.5/../../../../avr/lib/avr5\libc.a(fdevopen.o) (calloc)
+C:/WinAVR/bin/../lib/gcc/avr/3.4.5/../../../../avr/lib/avr5\libc.a(malloc.o)
+                              C:/WinAVR/bin/../lib/gcc/avr/3.4.5/../../../../avr/lib/avr5\libc.a(calloc.o) (malloc)
+C:/WinAVR/bin/../lib/gcc/avr/3.4.5/../../../../avr/lib/avr5\libc.a(memset.o)
+                              C:/WinAVR/bin/../lib/gcc/avr/3.4.5/../../../../avr/lib/avr5\libc.a(calloc.o) (memset)
+
+Allocating common symbols
+Common symbol       size              file
+
+SendeBuffer         0x64              uart.o
+Debug_Timer         0x2               main.o
+Debug_Display_Timer
+                    0x2               main.o
+__brkval            0x2               C:/WinAVR/bin/../lib/gcc/avr/3.4.5/../../../../avr/lib/avr5\libc.a(malloc.o)
+DebugIn             0xb               main.o
+VersionInfo         0xa               main.o
+New_IR_Code         0x1               ir.o
+RxdBuffer           0x64              uart.o
+AnalogWerte         0x6               analog.o
+IR_Code             0x2               ir.o
+KanalVon            0x8               menu.o
+Decodierung_Lauft   0x1               ir.o
+DebugOut            0x1a              main.o
+KanalAn             0x8               menu.o
+__flp               0x2               C:/WinAVR/bin/../lib/gcc/avr/3.4.5/../../../../avr/lib/avr5\libc.a(malloc.o)
+PollDisplay         0x1               main.o
+__iob               0x6               C:/WinAVR/bin/../lib/gcc/avr/3.4.5/../../../../avr/lib/avr5\libc.a(iob.o)
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+text             0x00000000         0x00020000         xr
+data             0x00800060         0x0000ffa0         rw !x
+eeprom           0x00810000         0x00010000         rw !x
+*default*        0x00000000         0xffffffff
+
+Linker script and memory map
+
+LOAD C:/WinAVR/bin/../lib/gcc/avr/3.4.5/../../../../avr/lib/avr5/crtm32.o
+LOAD main.o
+LOAD uart.o
+LOAD lcd.o
+LOAD printf_P.o
+LOAD timer0.o
+LOAD keyboard.o
+LOAD menu.o
+LOAD ir.o
+LOAD analog.o
+LOAD C:/WinAVR/bin/../lib/gcc/avr/3.4.5/../../../../avr/lib/avr5\libm.a
+LOAD C:/WinAVR/lib/gcc/avr/3.4.5/avr5\libgcc.a
+LOAD C:/WinAVR/bin/../lib/gcc/avr/3.4.5/../../../../avr/lib/avr5\libc.a
+LOAD C:/WinAVR/lib/gcc/avr/3.4.5/avr5\libgcc.a
+
+.hash
+ *(.hash)
+
+.dynsym
+ *(.dynsym)
+
+.dynstr
+ *(.dynstr)
+
+.gnu.version
+ *(.gnu.version)
+
+.gnu.version_d
+ *(.gnu.version_d)
+
+.gnu.version_r
+ *(.gnu.version_r)
+
+.rel.init
+ *(.rel.init)
+
+.rela.init
+ *(.rela.init)
+
+.rel.text
+ *(.rel.text)
+ *(.rel.text.*)
+ *(.rel.gnu.linkonce.t*)
+
+.rela.text
+ *(.rela.text)
+ *(.rela.text.*)
+ *(.rela.gnu.linkonce.t*)
+
+.rel.fini
+ *(.rel.fini)
+
+.rela.fini
+ *(.rela.fini)
+
+.rel.rodata
+ *(.rel.rodata)
+ *(.rel.rodata.*)
+ *(.rel.gnu.linkonce.r*)
+
+.rela.rodata
+ *(.rela.rodata)
+ *(.rela.rodata.*)
+ *(.rela.gnu.linkonce.r*)
+
+.rel.data
+ *(.rel.data)
+ *(.rel.data.*)
+ *(.rel.gnu.linkonce.d*)
+
+.rela.data
+ *(.rela.data)
+ *(.rela.data.*)
+ *(.rela.gnu.linkonce.d*)
+
+.rel.ctors
+ *(.rel.ctors)
+
+.rela.ctors
+ *(.rela.ctors)
+
+.rel.dtors
+ *(.rel.dtors)
+
+.rela.dtors
+ *(.rela.dtors)
+
+.rel.got
+ *(.rel.got)
+
+.rela.got
+ *(.rela.got)
+
+.rel.bss
+ *(.rel.bss)
+
+.rela.bss
+ *(.rela.bss)
+
+.rel.plt
+ *(.rel.plt)
+
+.rela.plt
+ *(.rela.plt)
+
+.text           0x00000000     0x1c18
+ *(.vectors)
+ .vectors       0x00000000       0x54 C:/WinAVR/bin/../lib/gcc/avr/3.4.5/../../../../avr/lib/avr5/crtm32.o
+                0x00000000                __vectors
+                0x00000000                __vector_default
+                0x00000054                __ctors_start = .
+ *(.ctors)
+                0x00000054                __ctors_end = .
+                0x00000054                __dtors_start = .
+ *(.dtors)
+                0x00000054                __dtors_end = .
+ *(.progmem.gcc*)
+ *(.progmem*)
+ .progmem.data  0x00000054       0x54 main.o
+ .progmem.data  0x000000a8        0xc uart.o
+ .progmem.data  0x000000b4       0x56 menu.o
+                0x0000010a                . = ALIGN (0x2)
+ *(.init0)
+ *(.init1)
+ *(.init2)
+ .init2         0x0000010a        0xc C:/WinAVR/bin/../lib/gcc/avr/3.4.5/../../../../avr/lib/avr5/crtm32.o
+ *(.init3)
+ *(.init4)
+ .init4         0x00000116       0x16 C:/WinAVR/lib/gcc/avr/3.4.5/avr5\libgcc.a(_copy_data.o)
+                0x00000116                __do_copy_data
+ .init4         0x0000012c       0x10 C:/WinAVR/lib/gcc/avr/3.4.5/avr5\libgcc.a(_clear_bss.o)
+                0x0000012c                __do_clear_bss
+ *(.init5)
+ *(.init6)
+ *(.init7)
+ *(.init8)
+ *(.init9)
+ .init9         0x0000013c        0x4 C:/WinAVR/bin/../lib/gcc/avr/3.4.5/../../../../avr/lib/avr5/crtm32.o
+ *(.text)
+ .text          0x00000140        0x4 C:/WinAVR/bin/../lib/gcc/avr/3.4.5/../../../../avr/lib/avr5/crtm32.o
+                0x00000140                __vector_12
+                0x00000140                __bad_interrupt
+                0x00000140                __vector_6
+                0x00000140                __vector_3
+                0x00000140                __vector_17
+                0x00000140                __vector_19
+                0x00000140                __vector_7
+                0x00000140                __vector_5
+                0x00000140                __vector_4
+                0x00000140                __vector_2
+                0x00000140                __vector_8
+                0x00000140                __vector_14
+                0x00000140                __vector_10
+                0x00000140                __vector_16
+                0x00000140                __vector_18
+                0x00000140                __vector_20
+ .text          0x00000144      0x282 main.o
+                0x000001b4                Init
+                0x00000156                Sekundentakt
+                0x000001ca                main
+                0x00000144                Sekundentakt_Init
+ .text          0x000003c6      0x7e6 uart.o
+                0x000009f8                WriteProgramData
+                0x00000a16                SendeRemoteTasten
+                0x000009fa                UART_Init
+                0x00000430                __vector_13
+                0x0000080a                BearbeiteRxDaten
+                0x00000abe                ClearIntervalle
+                0x00000a76                SendIntervalle
+                0x000005de                AddCRC
+                0x00000b04                DatenUebertragung
+                0x00000732                Decode64
+                0x000003c6                __vector_15
+                0x0000064a                SendOutData
+                0x000009dc                uart_putchar
+ .text          0x00000bac      0x1b2 lcd.o
+                0x00000cc4                LCD_Gotoxy
+                0x00000c4e                my_pput
+                0x00000c08                _lcd_write_4bit
+                0x00000bcc                _short_delay
+                0x00000c26                lcd_write_byte
+                0x00000bdc                _lcd_write_command
+                0x00000c58                LCD_Init
+                0x00000d48                LCD_Putchar
+                0x00000d12                LCD_Write
+                0x00000bac                _long_delay
+ .text          0x00000d5e      0x58a printf_P.o
+                0x00000de0                _printf_P
+                0x00000dc8                PAD_0
+                0x00000d86                PRINTP
+                0x00000d5e                PRINT
+                0x00000db0                PAD_SP
+ .text          0x000012e8       0xd6 timer0.o
+                0x0000137c                SetDelay
+                0x0000138e                CheckDelay
+                0x000013a4                Delay_ms
+                0x000012e8                __vector_9
+                0x00001368                Timer1_Init
+ .text          0x000013be      0x136 keyboard.o
+                0x000014da                GetKeyboard2
+                0x000013be                Keyboard_Init
+                0x000013d0                GetKeyboard
+ .text          0x000014f4      0x206 menu.o
+                0x000014f4                Menu
+ .text          0x000016fa      0x1b6 ir.o
+                0x00001728                __vector_1
+                0x00001758                __vector_11
+                0x000016fa                InitIR
+ .text          0x000018b0       0x44 analog.o
+                0x000018c8                GetAnalogWerte
+                0x000018b8                ReadADC
+                0x000018b0                ADC_Init
+ .text          0x000018f4       0x1a C:/WinAVR/bin/../lib/gcc/avr/3.4.5/../../../../avr/lib/avr5\libc.a(memchr.o)
+                0x000018f4                memchr
+ .text          0x0000190e       0x8e C:/WinAVR/bin/../lib/gcc/avr/3.4.5/../../../../avr/lib/avr5\libc.a(fdevopen.o)
+                0x0000190e                fdevopen
+ .text          0x0000199c       0x38 C:/WinAVR/bin/../lib/gcc/avr/3.4.5/../../../../avr/lib/avr5\libc.a(calloc.o)
+                0x0000199c                calloc
+ .text          0x000019d4      0x1ec C:/WinAVR/bin/../lib/gcc/avr/3.4.5/../../../../avr/lib/avr5\libc.a(malloc.o)
+                0x000019d4                malloc
+                0x00001b08                free
+ .text          0x00001bc0       0x14 C:/WinAVR/bin/../lib/gcc/avr/3.4.5/../../../../avr/lib/avr5\libc.a(memset.o)
+                0x00001bc0                memset
+                0x00001bd4                . = ALIGN (0x2)
+ *(.text.*)
+ .text.libgcc   0x00001bd4       0x44 C:/WinAVR/lib/gcc/avr/3.4.5/avr5\libgcc.a(_udivmodsi4.o)
+                0x00001bd4                __udivmodsi4
+                0x00001c18                . = ALIGN (0x2)
+ *(.fini9)
+ *(.fini8)
+ *(.fini7)
+ *(.fini6)
+ *(.fini5)
+ *(.fini4)
+ *(.fini3)
+ *(.fini2)
+ *(.fini1)
+ *(.fini0)
+                0x00001c18                _etext = .
+
+.data           0x00800060       0x24 load address 0x00001c18
+                0x00800060                PROVIDE (__data_start, .)
+ *(.data)
+ .data          0x00800060        0xc main.o
+                0x00800065                DisplayZeilen
+                0x00800064                SlaveAdresse
+                0x00800066                CntDatensaetzeProSekunde
+                0x00800062                IntervallDebug
+                0x00800060                IntervallDisplay
+ .data          0x0080006c        0x5 uart.o
+                0x0080006e                UebertragungAbgeschlossen
+                0x0080006c                AnzahlTeilnehmer
+                0x0080006d                ErwarteAntwort
+ .data          0x00800071        0xb menu.o
+                0x00800071                Array
+ .data          0x0080007c        0x2 ir.o
+                0x0080007c                LoescheIrCodeTimer
+ .data          0x0080007e        0x6 C:/WinAVR/bin/../lib/gcc/avr/3.4.5/../../../../avr/lib/avr5\libc.a(malloc.o)
+                0x00800080                __malloc_heap_start
+                0x0080007e                __malloc_heap_end
+                0x00800082                __malloc_margin
+ *(.gnu.linkonce.d*)
+                0x00800084                . = ALIGN (0x2)
+                0x00800084                _edata = .
+                0x00800084                PROVIDE (__data_end, .)
+
+.bss            0x00800084      0x157
+                0x00800084                PROVIDE (__bss_start, .)
+ *(.bss)
+ .bss           0x00800084        0xe main.o
+                0x00800087                DebugGetAnforderung
+                0x00800088                Debug_Display_Intervall
+                0x00800086                GetVersionAnforderung
+                0x0080008d                Sekunde
+                0x00800085                SendeDummyDaten
+                0x0080008e                _TastTimer
+                0x0080008c                Minute
+                0x0080008a                Debug_Timer_Intervall
+                0x00800084                UebertragungUnterbrochen
+                0x00800090                _SekTimer
+ .bss           0x00800092       0x14 uart.o
+                0x0080009d                SioTmp
+                0x00800098                PC_DebugTimeout
+                0x0080009c                NeuerDatensatzEmpfangen
+                0x0080009a                CntCrcError
+                0x00800097                TX_DigTransferKanalL
+                0x00800094                DisplayBusy
+                0x00800092                WaitTXD
+                0x00800099                AnzahlEmpfangsBytes
+                0x00800095                TX_DigTransferKanalDaten
+                0x00800093                AntwortEingetroffen
+                0x00800096                TX_DigTransferKanalH
+ .bss           0x008000a6        0x3 timer0.o
+                0x008000a6                CountMilliseconds
+ .bss           0x008000a9        0x7 keyboard.o
+                0x008000a9                KeyTimer
+ .bss           0x008000b0        0x5 menu.o
+                0x008000b0                TestInt
+ .bss           0x008000b5        0x6 ir.o
+ *(COMMON)
+ COMMON         0x008000bb       0x34 main.o
+                0x008000bb                Debug_Timer
+                0x008000bd                Debug_Display_Timer
+                0x008000bf                DebugIn
+                0x008000ca                VersionInfo
+                0x008000d4                DebugOut
+                0x008000ee                PollDisplay
+ COMMON         0x008000ef       0xc8 uart.o
+                0x008000ef                SendeBuffer
+                0x00800153                RxdBuffer
+ COMMON         0x008001b7       0x10 menu.o
+                0x008001b7                KanalVon
+                0x008001bf                KanalAn
+ COMMON         0x008001c7        0x4 ir.o
+                0x008001c7                New_IR_Code
+                0x008001c8                IR_Code
+                0x008001ca                Decodierung_Lauft
+ COMMON         0x008001cb        0x6 analog.o
+                0x008001cb                AnalogWerte
+ COMMON         0x008001d1        0x6 C:/WinAVR/bin/../lib/gcc/avr/3.4.5/../../../../avr/lib/avr5\libc.a(iob.o)
+                0x008001d1                __iob
+ COMMON         0x008001d7        0x4 C:/WinAVR/bin/../lib/gcc/avr/3.4.5/../../../../avr/lib/avr5\libc.a(malloc.o)
+                0x008001d7                __brkval
+                0x008001d9                __flp
+                0x008001db                PROVIDE (__bss_end, .)
+                0x00001c18                __data_load_start = LOADADDR (.data)
+                0x00001c3c                __data_load_end = (__data_load_start + SIZEOF (.data))
+
+.noinit         0x008001db        0x0
+                0x008001db                PROVIDE (__noinit_start, .)
+ *(.noinit*)
+                0x008001db                PROVIDE (__noinit_end, .)
+                0x008001db                _end = .
+                0x008001db                PROVIDE (__heap_start, .)
+
+.eeprom         0x00810000        0x0
+ *(.eeprom*)
+                0x00810000                __eeprom_end = .
+
+.stab           0x00000000      0x36c
+ *(.stab)
+ .stab          0x00000000      0x36c C:/WinAVR/bin/../lib/gcc/avr/3.4.5/../../../../avr/lib/avr5/crtm32.o
+
+.stabstr        0x00000000       0x84
+ *(.stabstr)
+ .stabstr       0x00000000       0x84 C:/WinAVR/bin/../lib/gcc/avr/3.4.5/../../../../avr/lib/avr5/crtm32.o
+
+.stab.excl
+ *(.stab.excl)
+
+.stab.exclstr
+ *(.stab.exclstr)
+
+.stab.index
+ *(.stab.index)
+
+.stab.indexstr
+ *(.stab.indexstr)
+
+.comment
+ *(.comment)
+
+.debug
+ *(.debug)
+
+.line
+ *(.line)
+
+.debug_srcinfo
+ *(.debug_srcinfo)
+
+.debug_sfnames
+ *(.debug_sfnames)
+
+.debug_aranges  0x00000000       0xb4
+ *(.debug_aranges)
+ .debug_aranges
+                0x00000000       0x14 main.o
+ .debug_aranges
+                0x00000014       0x14 uart.o
+ .debug_aranges
+                0x00000028       0x14 lcd.o
+ .debug_aranges
+                0x0000003c       0x14 printf_P.o
+ .debug_aranges
+                0x00000050       0x14 timer0.o
+ .debug_aranges
+                0x00000064       0x14 keyboard.o
+ .debug_aranges
+                0x00000078       0x14 menu.o
+ .debug_aranges
+                0x0000008c       0x14 ir.o
+ .debug_aranges
+                0x000000a0       0x14 analog.o
+
+.debug_pubnames
+                0x00000000      0x701
+ *(.debug_pubnames)
+ .debug_pubnames
+                0x00000000      0x1e1 main.o
+ .debug_pubnames
+                0x000001e1      0x240 uart.o
+ .debug_pubnames
+                0x00000421       0xb7 lcd.o
+ .debug_pubnames
+                0x000004d8       0x4a printf_P.o
+ .debug_pubnames
+                0x00000522       0x70 timer0.o
+ .debug_pubnames
+                0x00000592       0x52 keyboard.o
+ .debug_pubnames
+                0x000005e4       0x4a menu.o
+ .debug_pubnames
+                0x0000062e       0x85 ir.o
+ .debug_pubnames
+                0x000006b3       0x4e analog.o
+
+.debug_info     0x00000000     0x1a6c
+ *(.debug_info)
+ .debug_info    0x00000000      0x469 main.o
+ .debug_info    0x00000469      0x7ba uart.o
+ .debug_info    0x00000c23      0x260 lcd.o
+ .debug_info    0x00000e83      0x45d printf_P.o
+ .debug_info    0x000012e0      0x1d7 timer0.o
+ .debug_info    0x000014b7      0x177 keyboard.o
+ .debug_info    0x0000162e      0x1a7 menu.o
+ .debug_info    0x000017d5      0x171 ir.o
+ .debug_info    0x00001946      0x126 analog.o
+ *(.gnu.linkonce.wi.*)
+
+.debug_abbrev   0x00000000      0x774
+ *(.debug_abbrev)
+ .debug_abbrev  0x00000000      0x10c main.o
+ .debug_abbrev  0x0000010c      0x178 uart.o
+ .debug_abbrev  0x00000284       0xbc lcd.o
+ .debug_abbrev  0x00000340      0x132 printf_P.o
+ .debug_abbrev  0x00000472       0xc5 timer0.o
+ .debug_abbrev  0x00000537       0x87 keyboard.o
+ .debug_abbrev  0x000005be       0xb6 menu.o
+ .debug_abbrev  0x00000674       0x76 ir.o
+ .debug_abbrev  0x000006ea       0x8a analog.o
+
+.debug_line     0x00000000     0x16a3
+ *(.debug_line)
+ .debug_line    0x00000000      0x2aa main.o
+ .debug_line    0x000002aa      0x4c4 uart.o
+ .debug_line    0x0000076e      0x279 lcd.o
+ .debug_line    0x000009e7      0x4e2 printf_P.o
+ .debug_line    0x00000ec9      0x180 timer0.o
+ .debug_line    0x00001049      0x170 keyboard.o
+ .debug_line    0x000011b9      0x19a menu.o
+ .debug_line    0x00001353      0x212 ir.o
+ .debug_line    0x00001565      0x13e analog.o
+
+.debug_frame
+ *(.debug_frame)
+
+.debug_str      0x00000000      0x889
+ *(.debug_str)
+ .debug_str     0x00000000      0x2e2 main.o
+                                0x371 (size before relaxing)
+ .debug_str     0x000002e2      0x26b uart.o
+                                0x423 (size before relaxing)
+ .debug_str     0x0000054d       0x9a lcd.o
+                                0x17b (size before relaxing)
+ .debug_str     0x000005e7       0xf9 printf_P.o
+                                0x1bd (size before relaxing)
+ .debug_str     0x000006e0       0x6b timer0.o
+                                0x168 (size before relaxing)
+ .debug_str     0x0000074b       0x5e keyboard.o
+                                0x13f (size before relaxing)
+ .debug_str     0x000007a9       0x40 menu.o
+                                0x15e (size before relaxing)
+ .debug_str     0x000007e9       0x6d ir.o
+                                0x169 (size before relaxing)
+ .debug_str     0x00000856       0x33 analog.o
+                                0x120 (size before relaxing)
+
+.debug_loc
+ *(.debug_loc)
+
+.debug_macinfo
+ *(.debug_macinfo)
+OUTPUT(main.elf elf32-avr)
+
+Cross Reference Table
+
+Symbol                                            File
+ADC_Init                                          analog.o
+                                                  main.o
+AddCRC                                            uart.o
+AnalogWerte                                       analog.o
+                                                  uart.o
+AntwortEingetroffen                               uart.o
+AnzahlEmpfangsBytes                               uart.o
+AnzahlTeilnehmer                                  uart.o
+                                                  menu.o
+Array                                             menu.o
+BearbeiteRxDaten                                  uart.o
+                                                  main.o
+CheckDelay                                        timer0.o
+                                                  keyboard.o
+                                                  main.o
+ClearIntervalle                                   uart.o
+                                                  main.o
+CntCrcError                                       uart.o
+                                                  menu.o
+CntDatensaetzeProSekunde                          main.o
+                                                  uart.o
+CountMilliseconds                                 timer0.o
+DatenUebertragung                                 uart.o
+                                                  main.o
+DebugGetAnforderung                               main.o
+DebugIn                                           uart.o
+                                                  main.o
+DebugOut                                          uart.o
+                                                  main.o
+Debug_Display_Intervall                           main.o
+Debug_Display_Timer                               main.o
+Debug_Timer                                       main.o
+Debug_Timer_Intervall                             main.o
+Decode64                                          uart.o
+Decodierung_Lauft                                 ir.o
+Delay_ms                                          timer0.o
+                                                  main.o
+DisplayBusy                                       uart.o
+                                                  timer0.o
+DisplayZeilen                                     main.o
+                                                  menu.o
+                                                  uart.o
+ErwarteAntwort                                    uart.o
+GetAnalogWerte                                    analog.o
+                                                  main.o
+GetKeyboard                                       keyboard.o
+                                                  main.o
+GetKeyboard2                                      keyboard.o
+                                                  main.o
+GetVersionAnforderung                             main.o
+IR_Code                                           ir.o
+                                                  timer0.o
+                                                  uart.o
+Init                                              main.o
+InitIR                                            ir.o
+                                                  main.o
+IntervallDebug                                    main.o
+IntervallDisplay                                  main.o
+KanalAn                                           menu.o
+KanalVon                                          menu.o
+KeyTimer                                          keyboard.o
+Keyboard_Init                                     keyboard.o
+                                                  main.o
+LCD_Gotoxy                                        lcd.o
+                                                  menu.o
+                                                  uart.o
+                                                  main.o
+LCD_Init                                          lcd.o
+                                                  main.o
+LCD_Putchar                                       lcd.o
+                                                  printf_P.o
+LCD_Write                                         lcd.o
+LoescheIrCodeTimer                                ir.o
+                                                  timer0.o
+Menu                                              menu.o
+                                                  main.o
+Minute                                            main.o
+NeuerDatensatzEmpfangen                           uart.o
+New_IR_Code                                       ir.o
+PAD_0                                             printf_P.o
+PAD_SP                                            printf_P.o
+PC_DebugTimeout                                   uart.o
+PRINT                                             printf_P.o
+PRINTP                                            printf_P.o
+PollDisplay                                       uart.o
+                                                  main.o
+ReadADC                                           analog.o
+RxdBuffer                                         uart.o
+Sekunde                                           main.o
+Sekundentakt                                      main.o
+Sekundentakt_Init                                 main.o
+SendIntervalle                                    uart.o
+SendOutData                                       uart.o
+SendeBuffer                                       uart.o
+SendeDummyDaten                                   main.o
+SendeRemoteTasten                                 uart.o
+SetDelay                                          timer0.o
+                                                  keyboard.o
+                                                  main.o
+SioTmp                                            uart.o
+SlaveAdresse                                      main.o
+                                                  menu.o
+                                                  uart.o
+TX_DigTransferKanalDaten                          uart.o
+TX_DigTransferKanalH                              uart.o
+TX_DigTransferKanalL                              uart.o
+TestInt                                           menu.o
+Timer1_Init                                       timer0.o
+                                                  main.o
+UART_Init                                         uart.o
+                                                  main.o
+UebertragungAbgeschlossen                         uart.o
+UebertragungUnterbrochen                          main.o
+VersionInfo                                       main.o
+WaitTXD                                           uart.o
+                                                  timer0.o
+WriteProgramData                                  uart.o
+_SekTimer                                         main.o
+_TastTimer                                        main.o
+__bad_interrupt                                   C:/WinAVR/bin/../lib/gcc/avr/3.4.5/../../../../avr/lib/avr5/crtm32.o
+__brkval                                          C:/WinAVR/bin/../lib/gcc/avr/3.4.5/../../../../avr/lib/avr5\libc.a(malloc.o)
+__bss_end                                         C:/WinAVR/lib/gcc/avr/3.4.5/avr5\libgcc.a(_clear_bss.o)
+__bss_start                                       C:/WinAVR/lib/gcc/avr/3.4.5/avr5\libgcc.a(_clear_bss.o)
+__data_end                                        C:/WinAVR/lib/gcc/avr/3.4.5/avr5\libgcc.a(_copy_data.o)
+__data_load_start                                 C:/WinAVR/lib/gcc/avr/3.4.5/avr5\libgcc.a(_copy_data.o)
+__data_start                                      C:/WinAVR/lib/gcc/avr/3.4.5/avr5\libgcc.a(_copy_data.o)
+__do_clear_bss                                    C:/WinAVR/lib/gcc/avr/3.4.5/avr5\libgcc.a(_clear_bss.o)
+                                                  C:/WinAVR/bin/../lib/gcc/avr/3.4.5/../../../../avr/lib/avr5\libc.a(malloc.o)
+                                                  C:/WinAVR/bin/../lib/gcc/avr/3.4.5/../../../../avr/lib/avr5\libc.a(calloc.o)
+                                                  C:/WinAVR/bin/../lib/gcc/avr/3.4.5/../../../../avr/lib/avr5\libc.a(iob.o)
+                                                  C:/WinAVR/bin/../lib/gcc/avr/3.4.5/../../../../avr/lib/avr5\libc.a(fdevopen.o)
+                                                  analog.o
+                                                  ir.o
+                                                  menu.o
+                                                  keyboard.o
+                                                  timer0.o
+                                                  printf_P.o
+                                                  lcd.o
+                                                  uart.o
+                                                  main.o
+__do_copy_data                                    C:/WinAVR/lib/gcc/avr/3.4.5/avr5\libgcc.a(_copy_data.o)
+                                                  C:/WinAVR/bin/../lib/gcc/avr/3.4.5/../../../../avr/lib/avr5\libc.a(malloc.o)
+                                                  C:/WinAVR/bin/../lib/gcc/avr/3.4.5/../../../../avr/lib/avr5\libc.a(calloc.o)
+                                                  C:/WinAVR/bin/../lib/gcc/avr/3.4.5/../../../../avr/lib/avr5\libc.a(iob.o)
+                                                  C:/WinAVR/bin/../lib/gcc/avr/3.4.5/../../../../avr/lib/avr5\libc.a(fdevopen.o)
+                                                  analog.o
+                                                  ir.o
+                                                  menu.o
+                                                  keyboard.o
+                                                  timer0.o
+                                                  printf_P.o
+                                                  lcd.o
+                                                  uart.o
+                                                  main.o
+__flp                                             C:/WinAVR/bin/../lib/gcc/avr/3.4.5/../../../../avr/lib/avr5\libc.a(malloc.o)
+__heap_end                                        C:/WinAVR/bin/../lib/gcc/avr/3.4.5/../../../../avr/lib/avr5/crtm32.o
+                                                  C:/WinAVR/bin/../lib/gcc/avr/3.4.5/../../../../avr/lib/avr5\libc.a(malloc.o)
+__heap_start                                      C:/WinAVR/bin/../lib/gcc/avr/3.4.5/../../../../avr/lib/avr5\libc.a(malloc.o)
+__init                                            C:/WinAVR/bin/../lib/gcc/avr/3.4.5/../../../../avr/lib/avr5/crtm32.o
+__iob                                             C:/WinAVR/bin/../lib/gcc/avr/3.4.5/../../../../avr/lib/avr5\libc.a(iob.o)
+                                                  C:/WinAVR/bin/../lib/gcc/avr/3.4.5/../../../../avr/lib/avr5\libc.a(fdevopen.o)
+__malloc_heap_end                                 C:/WinAVR/bin/../lib/gcc/avr/3.4.5/../../../../avr/lib/avr5\libc.a(malloc.o)
+__malloc_heap_start                               C:/WinAVR/bin/../lib/gcc/avr/3.4.5/../../../../avr/lib/avr5\libc.a(malloc.o)
+__malloc_margin                                   C:/WinAVR/bin/../lib/gcc/avr/3.4.5/../../../../avr/lib/avr5\libc.a(malloc.o)
+__stack                                           C:/WinAVR/bin/../lib/gcc/avr/3.4.5/../../../../avr/lib/avr5/crtm32.o
+                                                  main.o
+__udivmodsi4                                      C:/WinAVR/lib/gcc/avr/3.4.5/avr5\libgcc.a(_udivmodsi4.o)
+                                                  printf_P.o
+__vector_1                                        ir.o
+                                                  C:/WinAVR/bin/../lib/gcc/avr/3.4.5/../../../../avr/lib/avr5/crtm32.o
+__vector_10                                       C:/WinAVR/bin/../lib/gcc/avr/3.4.5/../../../../avr/lib/avr5/crtm32.o
+__vector_11                                       ir.o
+                                                  C:/WinAVR/bin/../lib/gcc/avr/3.4.5/../../../../avr/lib/avr5/crtm32.o
+__vector_12                                       C:/WinAVR/bin/../lib/gcc/avr/3.4.5/../../../../avr/lib/avr5/crtm32.o
+__vector_13                                       uart.o
+                                                  C:/WinAVR/bin/../lib/gcc/avr/3.4.5/../../../../avr/lib/avr5/crtm32.o
+__vector_14                                       C:/WinAVR/bin/../lib/gcc/avr/3.4.5/../../../../avr/lib/avr5/crtm32.o
+__vector_15                                       uart.o
+                                                  C:/WinAVR/bin/../lib/gcc/avr/3.4.5/../../../../avr/lib/avr5/crtm32.o
+__vector_16                                       C:/WinAVR/bin/../lib/gcc/avr/3.4.5/../../../../avr/lib/avr5/crtm32.o
+__vector_17                                       C:/WinAVR/bin/../lib/gcc/avr/3.4.5/../../../../avr/lib/avr5/crtm32.o
+__vector_18                                       C:/WinAVR/bin/../lib/gcc/avr/3.4.5/../../../../avr/lib/avr5/crtm32.o
+__vector_19                                       C:/WinAVR/bin/../lib/gcc/avr/3.4.5/../../../../avr/lib/avr5/crtm32.o
+__vector_2                                        C:/WinAVR/bin/../lib/gcc/avr/3.4.5/../../../../avr/lib/avr5/crtm32.o
+__vector_20                                       C:/WinAVR/bin/../lib/gcc/avr/3.4.5/../../../../avr/lib/avr5/crtm32.o
+__vector_3                                        C:/WinAVR/bin/../lib/gcc/avr/3.4.5/../../../../avr/lib/avr5/crtm32.o
+__vector_4                                        C:/WinAVR/bin/../lib/gcc/avr/3.4.5/../../../../avr/lib/avr5/crtm32.o
+__vector_5                                        C:/WinAVR/bin/../lib/gcc/avr/3.4.5/../../../../avr/lib/avr5/crtm32.o
+__vector_6                                        C:/WinAVR/bin/../lib/gcc/avr/3.4.5/../../../../avr/lib/avr5/crtm32.o
+__vector_7                                        C:/WinAVR/bin/../lib/gcc/avr/3.4.5/../../../../avr/lib/avr5/crtm32.o
+__vector_8                                        C:/WinAVR/bin/../lib/gcc/avr/3.4.5/../../../../avr/lib/avr5/crtm32.o
+__vector_9                                        timer0.o
+                                                  C:/WinAVR/bin/../lib/gcc/avr/3.4.5/../../../../avr/lib/avr5/crtm32.o
+__vector_default                                  C:/WinAVR/bin/../lib/gcc/avr/3.4.5/../../../../avr/lib/avr5/crtm32.o
+__vectors                                         C:/WinAVR/bin/../lib/gcc/avr/3.4.5/../../../../avr/lib/avr5/crtm32.o
+_lcd_write_4bit                                   lcd.o
+_lcd_write_command                                lcd.o
+                                                  menu.o
+                                                  main.o
+_long_delay                                       lcd.o
+                                                  menu.o
+                                                  main.o
+_printf_P                                         printf_P.o
+                                                  menu.o
+                                                  uart.o
+                                                  main.o
+_short_delay                                      lcd.o
+calloc                                            C:/WinAVR/bin/../lib/gcc/avr/3.4.5/../../../../avr/lib/avr5\libc.a(calloc.o)
+                                                  C:/WinAVR/bin/../lib/gcc/avr/3.4.5/../../../../avr/lib/avr5\libc.a(fdevopen.o)
+fdevopen                                          C:/WinAVR/bin/../lib/gcc/avr/3.4.5/../../../../avr/lib/avr5\libc.a(fdevopen.o)
+                                                  uart.o
+free                                              C:/WinAVR/bin/../lib/gcc/avr/3.4.5/../../../../avr/lib/avr5\libc.a(malloc.o)
+lcd_write_byte                                    lcd.o
+main                                              main.o
+                                                  C:/WinAVR/bin/../lib/gcc/avr/3.4.5/../../../../avr/lib/avr5/crtm32.o
+malloc                                            C:/WinAVR/bin/../lib/gcc/avr/3.4.5/../../../../avr/lib/avr5\libc.a(malloc.o)
+                                                  C:/WinAVR/bin/../lib/gcc/avr/3.4.5/../../../../avr/lib/avr5\libc.a(calloc.o)
+memchr                                            C:/WinAVR/bin/../lib/gcc/avr/3.4.5/../../../../avr/lib/avr5\libc.a(memchr.o)
+                                                  printf_P.o
+memset                                            C:/WinAVR/bin/../lib/gcc/avr/3.4.5/../../../../avr/lib/avr5\libc.a(memset.o)
+                                                  C:/WinAVR/bin/../lib/gcc/avr/3.4.5/../../../../avr/lib/avr5\libc.a(calloc.o)
+my_pput                                           lcd.o
+uart_putchar                                      uart.o

@@ -1,33 +1,33 @@
 #ifndef _MAIN_H
-#define _MAIN_H
+ #define _MAIN_H
 
-//#define MOTORADRESSE      0  // Adresse (1-4)     0 = Motoradresse Ã¼ber LÃ¶tjumper auf BL-Ctrl V1.1
+//#define MOTORADRESSE      0  // Adresse (1-4)     0 = Motoradresse über Lötjumper auf BL-Ctrl V1.1
 
 #define MANUELL_PWM       0   // zur manuellen Vorgabe der PWM  Werte: 0-255
 #define TEST_MANUELL      0   // zum Testen der Hardware ohne Kommutierungsdetektion  Werte: 0-255 (PWM)
-#define TEST_SCHUB        0       // Erzeugt ein Schubmuster        Werte: 0 = normal 1 = Test
-#define POLANZAHL        12   // Anzahl der Pole (Magnete) Wird nur zur Drehzahlausgabe Ã¼ber Debug gebraucht
+#define TEST_SCHUB        0	  // Erzeugt ein Schubmuster        Werte: 0 = normal 1 = Test
+#define POLANZAHL        12   // Anzahl der Pole (Magnete) Wird nur zur Drehzahlausgabe über Debug gebraucht
 #define MAX_PWM         255
 #define MIN_PWM           3
 #define MIN_PPM          10   // ab hier (PPM-Signal) schaltet der Regler erst ein
 #define FILTER_PPM        7   // wie stark soll das PPM-Signal gefiltert werden (Werte: 0-30)?
 
 #define SIO_DEBUG         0   // Testwertausgaben auf der seriellen Schnittstelle
-#define X3D_SIO           0       // serielles Protokoll des X3D (38400Bd) Achtung: dann muss SIO_DEBUG = 0 sein
+#define X3D_SIO           0	  // serielles Protokoll des X3D (38400Bd) Achtung: dann muss SIO_DEBUG = 0 sein
 
-#define _16KHZ    // Schaltfrequenz  -- die gewÃ¼nschte einkommentieren
-//#define _32KHZ    // Schaltfrequenz  -- die gewÃ¼nschte einkommentieren
+#define _16KHZ    // Schaltfrequenz  -- die gewünschte einkommentieren
+//#define _32KHZ    // Schaltfrequenz  -- die gewünschte einkommentieren
 
-//#define FDD6637_IRLR7843  1  // bessere MosFet bestÃ¼ckt? bewirkt hÃ¶here Stromgrenzen  
+//#define FDD6637_IRLR7843  1  // bessere MosFet bestückt? bewirkt höhere Stromgrenzen  
 
 
 #ifdef _16KHZ
 #if FDD_IRLR == 1                  // bessere Fets = mehr Strom zulassen
-#define MAX_STROM        200  // ab ca. 20A PWM ausschalten
-#define LIMIT_STROM      120  // ab ca. 12A PWM begrenzen
+ #define MAX_STROM        200  // ab ca. 20A PWM ausschalten
+ #define LIMIT_STROM      120  // ab ca. 12A PWM begrenzen
 #else
-#define MAX_STROM        130  // ab ca. 13A PWM ausschalten
-#define LIMIT_STROM       65  // ab ca. 6,5A PWM begrenzen
+ #define MAX_STROM        130  // ab ca. 13A PWM ausschalten
+ #define LIMIT_STROM       65  // ab ca. 6,5A PWM begrenzen
 #endif
 #endif
 
@@ -36,7 +36,7 @@
 #define LIMIT_STROM       50  // ab ca. 5,0A PWM begrenzen
 #endif
 
-#define SYSCLK  8000000L        //Quarz Frequenz in Hz
+#define SYSCLK	8000000L	//Quarz Frequenz in Hz
 
 #define GRN_ON  {if(HwVersion < 12) PORTD |= GRUEN; else PORTD &= ~GRUEN;}
 #define GRN_OFF {if(HwVersion > 11) PORTD |= GRUEN; else PORTD &= ~GRUEN;}
@@ -115,15 +115,15 @@ extern unsigned char MotorAnwerfen;
 extern unsigned char MotorGestoppt;
 extern unsigned char ZeitZumAdWandeln;
 extern unsigned char MaxPWM;
-extern unsigned char MotorAdresse;
+extern unsigned char MotorAdresse; 
 extern unsigned char PPM_Betrieb;
 extern unsigned char HwVersion;
 extern unsigned char IntRef;
 #define ROT    0x08
-#define GRUEN  0x80    
+#define GRUEN  0x80	
 
-#define ADR1   0x40    // fÃ¼r Motoradresswahl
-#define ADR2   0x80    //
+#define ADR1   0x40    // für Motoradresswahl
+#define ADR2   0x80    // 
 
 #if defined(__AVR_ATmega8__)
 #  define OC1   PB1
@@ -131,7 +131,12 @@ extern unsigned char IntRef;
 #  define OCR   OCR1A
 #  define PWM10 WGM10
 #  define PWM11 WGM11
-#endif
+#endif 
 
 
 #endif //_MAIN_H
+
+
+
+
+

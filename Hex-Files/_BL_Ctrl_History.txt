@@ -1,0 +1,85 @@
++++++++++++++++++++++++++++++++++++
+Brushless-Control
+Holger Buss
+buss@Mikrocontroller.com
++++++++++++++++++++++++++++++++++++
+
+V0.21  13.01.2007
+- Erste offizielle Version
+- Unterstützt I2C und PPM
+
+V0.23
+- Bei niedrigen PWM-Werten, kam es am Motor zu einem "Knackgeräusch" (besonders in der 16kHz-Variante). 
+- Manchmal reagierte der Regler nicht gleich auf das PPM-Einschalt-Signal, wenn der Regler länger auf 0% war
+- Die Kommutierungserkennung läuft jetzt im Interrupt
+- Komponenten zur Drehzahlregelung wieder entfernt, weil sie den Code unleserlich machten
+  Kommt in einer späteren Version wahrscheinlich wieder rein
+  
+V0.25
+- Es wurden zu viele Kommutierungs-Interrupts ausgelöst
+
+V0.27  02.02.2007
+- X3D-Protokoll implementiert (für eine Sonderversion des X3D mit serieller Ausgabe)
+
+V0.31  22.2.2007
+- Das I2C-Bus Protokoll wurde geändert:
+  Jeder Motor wird jetzt mit einem eigenen Datensatz angesprochen
+  Aus den Motorreglern kann jetzt Strom und MaxPWM ausgelesen werden
+- Es hatte sich ein Fehler in der Umrechnung des seriellen Wertes (X-3D) eingeschlichen; das ist hier behoben
+  Mittels eines PC-Programms (SimTxData.exe) kann das X-3D-Protokoll simuliert und so die Motoren angefahren werden 
+
+V0.32  22.8.2007 - IB
+- Serielle Empfangsroutine eingefügt
+  es wird das Resetkommando für ein Bootloader-Update ausgeführt
+- Timerabfragen korrigiert (Wiederanlauf)
+- Versionsausgabe beim Start
+- Screenshot für PonyProg aktualisert (jetzt mit 2,7V Brownout)
+- Adress-Jumper auf BL-Ctrl-Platine V1.1 wird ausgewertet (#define MOTORADRESSE dann auf 0) !
+- Ausgabe der aktuellen Adresse (seriell)
+
+V0.33  18.9.2007 - HB
+- Zeitverzögerung bei Lesen der Adresse (für BL-Ctrl V1.1)
+
+V0.34  27.09.2007 - HB
+- Endstufentest mit Tonfolge implementiert
+Nach dem Start kommt eine Tonfolge, bei der der Regler seine Endstufe testet.
+Im Falle eines Fehlers, werden Buchstaben ausgegeben, die einen Hinweis auf den Fehlerhaften MosFet geben. 
+Falls mehrere Buchstaben auftreten, ist der erste ausschlaggebend.
+Falls das Piepen ausbleibt, handelt es sich um einen Überstrom durch Kurzschluss oder dauerhaft eingeschalteten FET.
+Falls der Motor nach der Testprozedur öfter piept und dabei die rote LED blinkt, schaltet der entsprechende Mosfet nicht durch.
+Dann kann man am Blinken (und Buchstaben) den Fehler erkennen. 
+Dabei ist: A=A+ (1) B=B+ (2) C=C+ (3) a=A- (4) b=B- (5) c=C- (6) (in Klammern der Blinkcode)
+
+V0.35  30.09.2007 - HB
+Endstufentest erweitert.
+Die Fehlercodes sind:
+1: Kurzschluss Phase A (gegen B)
+2: Kurzschluss Phase B (gegen A)
+3: Kurzschluss Phase C (gegen B)
+4: Mosfet NA- schaltet nicht ab
+5: Mosfet NB- schaltet nicht ab
+6: Mosfet NC- schaltet nicht ab
+7: Kurzschluss Phase C (gegen A)
+A: NA+ schaltet nicht ein
+B: NB+ schaltet nicht ein
+C: NC+ schaltet nicht ein
+a: NA- schaltet nicht ein
+b: NB- schaltet nicht ein
+c: NC- schaltet nicht ein
+
+V0.36  09.12.2007 - HB
+Überstrombegrenzung für die 20A-Software verbessert, um den Shunt zu schonen
+Schwellwert der Kurzschlusserkennung erhöht, wegen Motoren mit geringerer Impendanz
+
+V0.37  21.01.2008 - HB
+Die Genauigkeit der PWM war Drehzahlabhängig
+
+V0.38  05.03.2008 - HB
+Selbsttest-Routine etwas entschärft. Test auf Phasenkurzschluss entfernt
+
+V0.41  22.03.2008 - HB
+Version auch für Platinen V1.2
+Überstromerkennung beim Anwerfen des Motors -> Blinkt 10 mal bei Überstrom in der Startphase
+Das Makefile erzeugt jetzt die richtigen HexFile-Namen
+
+

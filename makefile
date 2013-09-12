@@ -2,9 +2,9 @@
 # MCU name
 MCU = atmega8
 #-------------------------------------------------------------------
-# ACHTUNG: Immer "Make Clean" machen, wenn hier etwas ge√§ndert wird!
+# ACHTUNG: Immer "Make Clean" machen, wenn hier etwas ge‰ndert wird!
 HAUPT_VERSION    = 0
-NEBEN_VERSION    = 42
+NEBEN_VERSION    = 41
 MotorAdresse     = 4
 FDD_IRLR         = 1
 #-------------------------------------------------------------------
@@ -14,17 +14,17 @@ FORMAT = ihex
 
 # Target file name (without extension).
 ifeq ($(MotorAdresse), 0)
-	ifeq ($(FDD_IRLR), 1) 
-	TARGET = BrushLess-Ctrlr_MEGA8_V$(HAUPT_VERSION)_$(NEBEN_VERSION)_10A
-else                 
-	TARGET = BrushLess-Ctrlr_MEGA8_V$(HAUPT_VERSION)_$(NEBEN_VERSION)_6A
-endif
+ifeq ($(FDD_IRLR), 1) 
+   TARGET = BrushLess-Ctrl_V$(HAUPT_VERSION)_$(NEBEN_VERSION)_10A
+ else                 
+   TARGET = BrushLess-Ctrl_V$(HAUPT_VERSION)_$(NEBEN_VERSION)_6A
+ endif
 else 
-	ifeq ($(FDD_IRLR), 1) 
-	TARGET = BrushLess-Ctrlr_MEGA8_V$(HAUPT_VERSION)_$(NEBEN_VERSION)_10A_ADR_$(MotorAdresse)_for_BL-Ctrl_V1_0
-else                 
-	TARGET = BrushLess-Ctrlr_MEGA8_V$(HAUPT_VERSION)_$(NEBEN_VERSION)_6A_ADR_$(MotorAdresse)_for_BL-Ctrl_V1_0
-endif
+ifeq ($(FDD_IRLR), 1) 
+   TARGET = BrushLess-Ctrl_V$(HAUPT_VERSION)_$(NEBEN_VERSION)_10A_ADR_$(MotorAdresse)_for_BL-Ctrl_V1_0
+ else                 
+   TARGET = BrushLess-Ctrl_V$(HAUPT_VERSION)_$(NEBEN_VERSION)_6A_ADR_$(MotorAdresse)_for_BL-Ctrl_V1_0
+ endif
 endif
 
 
@@ -44,7 +44,7 @@ SRC = main.c uart.c timer0.c analog.c PPM_Decode.c twislave.c BLMC.c
 
 # You can also wrap lines by appending a backslash to the end of the line:
 #SRC += baz.c \
-	#xyzzy.c
+#xyzzy.c
 
 
 
@@ -71,10 +71,10 @@ EXTRAINCDIRS =
 #  -Wa,...:   tell GCC to pass this to the assembler.
 #    -ahlms:  create assembler listing
 CFLAGS = -g -O$(OPT) \
-				 -funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums \
-				 -Wall -Wstrict-prototypes \
-				 -Wa,-adhlns=$(<:.c=.lst) \
-				 $(patsubst %,-I%,$(EXTRAINCDIRS))
+-funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums \
+-Wall -Wstrict-prototypes \
+-Wa,-adhlns=$(<:.c=.lst) \
+$(patsubst %,-I%,$(EXTRAINCDIRS))
 
 
 # Set a "language standard" compiler flag.
@@ -88,7 +88,7 @@ CFLAGS += -std=gnu99
 CFLAGS += -DVERSION_HAUPTVERSION=$(HAUPT_VERSION) -DVERSION_NEBENVERSION=$(NEBEN_VERSION) -DMOTORADRESSE=$(MotorAdresse) -DFDD_IRLR=$(FDD_IRLR)
 
 ifeq ($(AVR_CTRL_PLATINE), 1)
-	CFLAGS += -DAVR_CTRL_PLATINE=$(AVR_CTRL_PLATINE)         
+CFLAGS += -DAVR_CTRL_PLATINE=$(AVR_CTRL_PLATINE)         
 endif
 
 
@@ -138,11 +138,11 @@ LDFLAGS += -lm
 AVRDUDE_PROGRAMMER = dt006
 #AVRDUDE_PROGRAMMER = stk200
 
-#AVRDUDE_PORT = com1       # programmer connected to serial device
-AVRDUDE_PORT = lpt1     # programmer connected to parallel port
+#AVRDUDE_PORT = com1	   # programmer connected to serial device
+AVRDUDE_PORT = lpt1	# programmer connected to parallel port
 
 AVRDUDE_WRITE_FLASH = -U flash:w:$(TARGET).hex
-	#AVRDUDE_WRITE_EEPROM = -U eeprom:w:$(TARGET).eep
+#AVRDUDE_WRITE_EEPROM = -U eeprom:w:$(TARGET).eep
 
 AVRDUDE_FLAGS = -F -p $(MCU) -P $(AVRDUDE_PORT) -c $(AVRDUDE_PROGRAMMER)
 
@@ -168,10 +168,10 @@ AVRDUDE_FLAGS = -F -p $(MCU) -P $(AVRDUDE_PORT) -c $(AVRDUDE_PROGRAMMER)
 
 # Define directories, if needed.
 DIRAVR = c:/winavr
-	DIRAVRBIN = $(DIRAVR)/bin
-	DIRAVRUTILS = $(DIRAVR)/utils/bin
-	DIRINC = .
-	DIRLIB = $(DIRAVR)/avr/lib
+DIRAVRBIN = $(DIRAVR)/bin
+DIRAVRUTILS = $(DIRAVR)/utils/bin
+DIRINC = .
+DIRLIB = $(DIRAVR)/avr/lib
 
 
 # Define programs and commands.
@@ -199,9 +199,9 @@ ELFSIZE = $(SIZE) -A $(TARGET).elf
 # Define Messages
 # English
 MSG_ERRORS_NONE = Errors: none
-	MSG_BEGIN = -------- begin --------
-	MSG_END = --------  end  --------
-	MSG_SIZE_BEFORE = Size before: 
+MSG_BEGIN = -------- begin --------
+MSG_END = --------  end  --------
+MSG_SIZE_BEFORE = Size before: 
 MSG_SIZE_AFTER = Size after:
 MSG_COFF = Converting to AVR COFF:
 MSG_EXTENDED_COFF = Converting to AVR Extended COFF:
@@ -269,10 +269,10 @@ gccversion :
 # Convert ELF to COFF for use in debugging / simulating in
 # AVR Studio or VMLAB.
 COFFCONVERT=$(OBJCOPY) --debugging \
-						--change-section-address .data-0x800000 \
-						--change-section-address .bss-0x800000 \
-						--change-section-address .noinit-0x800000 \
-						--change-section-address .eeprom-0x810000 
+	--change-section-address .data-0x800000 \
+	--change-section-address .bss-0x800000 \
+	--change-section-address .noinit-0x800000 \
+	--change-section-address .eeprom-0x810000 
 
 
 coff: $(TARGET).elf
@@ -306,7 +306,7 @@ program: $(TARGET).hex $(TARGET).eep
 	@echo
 	@echo $(MSG_EEPROM) $@
 	-$(OBJCOPY) -j .eeprom --set-section-flags=.eeprom="alloc,load" \
-		--change-section-lma .eeprom=0 -O $(FORMAT) $< $@
+	--change-section-lma .eeprom=0 -O $(FORMAT) $< $@
 
 # Create extended listing file from ELF output file.
 %.lss: %.elf
@@ -360,9 +360,9 @@ clean: begin clean_list finished end
 clean_list :
 	@echo
 	@echo $(MSG_CLEANING)
-	#       $(REMOVE) $(TARGET).hex
-	#       $(REMOVE) $(TARGET).eep
-	#       $(REMOVE) $(TARGET).obj
+#	$(REMOVE) $(TARGET).hex
+#	$(REMOVE) $(TARGET).eep
+#	$(REMOVE) $(TARGET).obj
 	$(REMOVE) $(TARGET).cof
 	$(REMOVE) $(TARGET).elf
 	$(REMOVE) $(TARGET).map
@@ -387,8 +387,8 @@ clean_list :
 #
 %.d: %.c
 	set -e; $(CC) -MM $(ALL_CFLAGS) $< \
-		| sed 's,\(.*\)\.o[ :]*,\1.o \1.d : ,g' > $@; \
-		[ -s $@ ] || rm -f $@
+	| sed 's,\(.*\)\.o[ :]*,\1.o \1.d : ,g' > $@; \
+	[ -s $@ ] || rm -f $@
 
 
 # Remove the '-' if you want to see the dependency files generated.
@@ -399,3 +399,4 @@ clean_list :
 # Listing of phony targets.
 .PHONY : all begin finish end sizebefore sizeafter gccversion coff extcoff \
 	clean clean_list program
+
