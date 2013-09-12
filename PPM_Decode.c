@@ -1,17 +1,17 @@
 /*############################################################################
- + Regler f�r Brushless-Motoren
+ + Regler für Brushless-Motoren
  + ATMEGA8 mit 8MHz
  + (c) 01.2007 Holger Buss
- + Nur f�r den privaten Gebrauch / NON-COMMERCIAL USE ONLY
+ + Nur für den privaten Gebrauch / NON-COMMERCIAL USE ONLY
  + Keine Garantie auf Fehlerfreiheit
  + Kommerzielle Nutzung nur mit meiner Zustimmung
- + Der Code ist f�r die Hardware BL_Ctrl V1.0 entwickelt worden
+ + Der Code ist für die Hardware BL_Ctrl V1.0 entwickelt worden
  + www.mikrocontroller.com
 ############################################################################*/
 #include "main.h"
 volatile unsigned int PPM_Signal = 0;
 volatile unsigned char Timer1Overflow = 0;
-volatile unsigned char PPM_Timeout = 0, anz_ppm_werte = 0;   // Ung�ltig, wenn Null
+volatile unsigned char PPM_Timeout = 0, anz_ppm_werte = 0;   // Ungültig, wenn Null
 
 //############################################################################
 //
@@ -39,21 +39,21 @@ SIGNAL(SIG_INPUT_CAPTURE1)
 {
  static unsigned int tim_alt;
  static unsigned int ppm;
- if(TCCR1B & (1<<ICES1))   // Positive Flanke
+ if(TCCR1B & (1<<ICES1))   // 上升沿触发
   {
    Timer1Overflow = 0;
-   tim_alt = ICR1; 
-   ICP_NEG_FLANKE;
-   PPM_Timeout = 100;
+   tim_alt = ICR1; // 写入时间
+   ICP_NEG_FLANKE; // 切换为下降沿触发
+   PPM_Timeout = 100;  
   }
- else                      // Negative Flanke
+ else                      // 下降沿触发
   {
     ICP_POS_FLANKE;
 #ifdef  _32KHZ 
     ppm = (ICR1 - tim_alt + (int) Timer1Overflow * 256) / 32;
 #endif 
 #ifdef  _16KHZ 
-    ppm = (ICR1 - tim_alt + (int) Timer1Overflow * 512) / 32;
+    ppm = (ICR1 - tim_alt + (int) Timer1Overflow * 512) / 32; // 512为相位修正
 #endif 
     if(ppm < 280) ppm = 280;
     ppm -= 280;

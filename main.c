@@ -2,32 +2,32 @@
 Flight Control
 #######################################################################################*/
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-// + Regler für Brushless-Motoren
+// + Regler fÃ¼r Brushless-Motoren
 // + ATMEGA8 mit 8MHz
-// + Nur für den privaten Gebrauch / NON-COMMERCIAL USE ONLY
+// + Nur fÃ¼r den privaten Gebrauch / NON-COMMERCIAL USE ONLY
 // + Copyright (c) 12.2007 Holger Buss
 // + www.MikroKopter.com
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-// + Es gilt für das gesamte Projekt (Hardware, Software, Binärfiles, Sourcecode und Dokumentation), 
-// + dass eine Nutzung (auch auszugsweise) nur für den privaten (nicht-kommerziellen) Gebrauch zulässig ist. 
+// + Es gilt fÃ¼r das gesamte Projekt (Hardware, Software, BinÃ¤rfiles, Sourcecode und Dokumentation), 
+// + dass eine Nutzung (auch auszugsweise) nur fÃ¼r den privaten (nicht-kommerziellen) Gebrauch zulÃ¤ssig ist. 
 // + Sollten direkte oder indirekte kommerzielle Absichten verfolgt werden, ist mit uns (info@mikrokopter.de) Kontakt 
 // + bzgl. der Nutzungsbedingungen aufzunehmen. 
-// + Eine kommerzielle Nutzung ist z.B.Verkauf von MikroKoptern, Bestückung und Verkauf von Platinen oder Bausätzen,
+// + Eine kommerzielle Nutzung ist z.B.Verkauf von MikroKoptern, BestÃ¼ckung und Verkauf von Platinen oder BausÃ¤tzen,
 // + Verkauf von Luftbildaufnahmen, usw.
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-// + Werden Teile des Quellcodes (mit oder ohne Modifikation) weiterverwendet oder veröffentlicht, 
-// + unterliegen sie auch diesen Nutzungsbedingungen und diese Nutzungsbedingungen incl. Copyright müssen dann beiliegen
+// + Werden Teile des Quellcodes (mit oder ohne Modifikation) weiterverwendet oder verÃ¶ffentlicht, 
+// + unterliegen sie auch diesen Nutzungsbedingungen und diese Nutzungsbedingungen incl. Copyright mÃ¼ssen dann beiliegen
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // + Sollte die Software (auch auszugesweise) oder sonstige Informationen des MikroKopter-Projekts
-// + auf anderen Webseiten oder sonstigen Medien veröffentlicht werden, muss unsere Webseite "http://www.mikrokopter.de"
+// + auf anderen Webseiten oder sonstigen Medien verÃ¶ffentlicht werden, muss unsere Webseite "http://www.mikrokopter.de"
 // + eindeutig als Ursprung verlinkt werden
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-// + Keine Gewähr auf Fehlerfreiheit, Vollständigkeit oder Funktion
+// + Keine GewÃ¤hr auf Fehlerfreiheit, VollstÃ¤ndigkeit oder Funktion
 // + Benutzung auf eigene Gefahr
-// + Wir übernehmen keinerlei Haftung für direkte oder indirekte Personen- oder Sachschäden
+// + Wir Ã¼bernehmen keinerlei Haftung fÃ¼r direkte oder indirekte Personen- oder SachschÃ¤den
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // + Die Portierung oder Nutzung der Software (oder Teile davon) auf andere Systeme (ausser der Hardware von www.mikrokopter.de) ist nur 
-// + mit unserer Zustimmung zulässig
+// + mit unserer Zustimmung zulÃ¤ssig
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // + Die Funktion printf_P() unterliegt ihrer eigenen Lizenz und ist hiervon nicht betroffen
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -329,7 +329,7 @@ if(anz) while(1) RotBlink(anz);  // bei Kurzschluss nicht starten
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //+ LOW-Mosfets auf Schalten und Kurzschluss testen
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
- if(UDR == ' ') {t = 65535; grenze = 40; uart_putchar('_');} else t = 1000; // Ausführlicher Test
+ if(UDR == ' ') {t = 65535; grenze = 40; uart_putchar('_');} else t = 1000; // AusfÃ¼hrlicher Test
  Strom = 0;
  for(i=0;i<t;i++)
  {
@@ -498,9 +498,9 @@ unsigned char SollwertErmittlung(void)
 {
     static unsigned int sollwert = 0;
     unsigned int ppm;
-    if(!I2C_Timeout)   // bei Erreichen von 0 ist der Wert ungültig
+    if(!I2C_Timeout)   // bei Erreichen von 0 ist der Wert ungÃ¼ltig
         {
-        if(SIO_Timeout)  // es gibt gültige SIO-Daten
+        if(SIO_Timeout)  // es gibt gÃ¼ltige SIO-Daten
             {
              sollwert =  (MAX_PWM * (unsigned int) SIO_Sollwert) / 200;  // skalieren auf 0-200 = 0-255
              PPM_Betrieb = 0;
@@ -508,11 +508,11 @@ unsigned char SollwertErmittlung(void)
              PORTC &= ~ROT;
             }
         else
-            if(anz_ppm_werte > 20)  // es gibt gültige PPM-Daten
+            if(anz_ppm_werte > 20)  // es gibt gÃ¼ltige PPM-Daten
                 {
                 PPM_Betrieb = 1;
                 ppm = PPM_Signal;
-                if(ppm > 300) ppm =   0;  // ungültiges Signal
+                if(ppm > 300) ppm =   0;  // ungÃ¼ltiges Signal
                 if(ppm > 200) ppm = 200;
                 if(ppm <= MIN_PPM) sollwert = 0;
                 else 
@@ -521,13 +521,13 @@ unsigned char SollwertErmittlung(void)
                     }
                 PORTC &= ~ROT;
                 }
-            else   // Kein gültiger Sollwert
+            else   // Kein gÃ¼ltiger Sollwert
                 {
                  if(!TEST_SCHUB) { if(sollwert) sollwert--; }   
                  PORTC |= ROT; 
                 }
         }
-    else // I2C-Daten sind gültig
+    else // I2C-Daten sind gÃ¼ltig
         {
         sollwert = I2C_RXBuffer; 
         PPM_Betrieb = 0;
@@ -558,7 +558,7 @@ int main (void)
     PORTB = 0x31;
 	
 #if (MOTORADRESSE == 0)
-    PORTB |= (ADR1 + ADR2);   // Pullups für Adresswahl
+    PORTB |= (ADR1 + ADR2);   // Pullups fÃ¼r Adresswahl
     for(test=0;test<500;test++);
     if(PINB & ADR1)
 	 {
@@ -634,7 +634,7 @@ int main (void)
 //ShowSense();
 
         if(!TEST_SCHUB)   PWM = SollwertErmittlung();
-        //I2C_TXBuffer = PWM; // Antwort über I2C-Bus
+        //I2C_TXBuffer = PWM; // Antwort Ã¼ber I2C-Bus
         if(MANUELL_PWM)   PWM = MANUELL_PWM;
 
         // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
