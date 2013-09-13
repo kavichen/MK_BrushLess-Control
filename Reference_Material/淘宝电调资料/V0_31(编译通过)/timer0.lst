@@ -1,0 +1,206 @@
+   1               		.file	"timer0.c"
+   2               	__SREG__ = 0x3f
+   3               	__SP_H__ = 0x3e
+   4               	__SP_L__ = 0x3d
+   5               	__CCP__  = 0x34
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+  15               	.Ltext0:
+  16               	.global	__vector_9
+  18               	__vector_9:
+  19               	.LFB3:
+  20               	.LM1:
+  21 0000 1F92      		push __zero_reg__
+  22 0002 0F92      		push r0
+  23 0004 0FB6      		in r0,__SREG__
+  24 0006 0F92      		push r0
+  25 0008 1124      		clr __zero_reg__
+  26 000a 8F93      		push r24
+  27 000c 9F93      		push r25
+  28               	/* prologue: Signal */
+  29               	/* frame size = 0 */
+  30               	.LM2:
+  31 000e 8091 0000 		lds r24,Timer0Overflow
+  32 0012 8F5F      		subi r24,lo8(-(1))
+  33 0014 8093 0000 		sts Timer0Overflow,r24
+  34               	.LM3:
+  35 0018 8091 0000 		lds r24,cnt.1835
+  36 001c 8150      		subi r24,lo8(-(-1))
+  37 001e 8093 0000 		sts cnt.1835,r24
+  38 0022 8F5F      		subi r24,lo8(-(1))
+  39 0024 01F4      		brne .L5
+  40               	.LM4:
+  41 0026 83E0      		ldi r24,lo8(3)
+  42 0028 8093 0000 		sts cnt.1835,r24
+  43               	.LM5:
+  44 002c 8091 0000 		lds r24,CountMilliseconds
+  45 0030 9091 0000 		lds r25,(CountMilliseconds)+1
+  46 0034 0196      		adiw r24,1
+  47 0036 9093 0000 		sts (CountMilliseconds)+1,r25
+  48 003a 8093 0000 		sts CountMilliseconds,r24
+  49               	.LM6:
+  50 003e 8091 0000 		lds r24,I2C_Timeout
+  51 0042 9091 0000 		lds r25,(I2C_Timeout)+1
+  52 0046 0097      		sbiw r24,0
+  53 0048 01F0      		breq .L3
+  54 004a 0197      		sbiw r24,1
+  55 004c 9093 0000 		sts (I2C_Timeout)+1,r25
+  56 0050 8093 0000 		sts I2C_Timeout,r24
+  57               	.L3:
+  58               	.LM7:
+  59 0054 8091 0000 		lds r24,PPM_Timeout
+  60 0058 8823      		tst r24
+  61 005a 01F0      		breq .L4
+  62 005c 8091 0000 		lds r24,PPM_Timeout
+  63 0060 8150      		subi r24,lo8(-(-1))
+  64 0062 8093 0000 		sts PPM_Timeout,r24
+  65               	.L4:
+  66               	.LM8:
+  67 0066 8091 0000 		lds r24,SIO_Timeout
+  68 006a 8823      		tst r24
+  69 006c 01F0      		breq .L5
+  70 006e 8150      		subi r24,lo8(-(-1))
+  71 0070 8093 0000 		sts SIO_Timeout,r24
+  72               	.L5:
+  73               	/* epilogue start */
+  74               	.LM9:
+  75 0074 9F91      		pop r25
+  76 0076 8F91      		pop r24
+  77 0078 0F90      		pop r0
+  78 007a 0FBE      		out __SREG__,r0
+  79 007c 0F90      		pop r0
+  80 007e 1F90      		pop __zero_reg__
+  81 0080 1895      		reti
+  82               	.LFE3:
+  84               	.global	Timer0_Init
+  86               	Timer0_Init:
+  87               	.LFB4:
+  88               	.LM10:
+  89               	/* prologue: function */
+  90               	/* frame size = 0 */
+  91               	.LM11:
+  92 0082 82E0      		ldi r24,lo8(2)
+  93 0084 83BF      		out 83-32,r24
+  94               	.LM12:
+  95 0086 89B7      		in r24,89-32
+  96 0088 8160      		ori r24,lo8(1)
+  97 008a 89BF      		out 89-32,r24
+  98               	.LM13:
+  99 008c 89B7      		in r24,89-32
+ 100 008e 8064      		ori r24,lo8(64)
+ 101 0090 89BF      		out 89-32,r24
+ 102               	/* epilogue start */
+ 103               	.LM14:
+ 104 0092 0895      		ret
+ 105               	.LFE4:
+ 107               	.global	SetDelay
+ 109               	SetDelay:
+ 110               	.LFB5:
+ 111               	.LM15:
+ 112               	.LVL0:
+ 113               	/* prologue: function */
+ 114               	/* frame size = 0 */
+ 115               	.LM16:
+ 116 0094 2091 0000 		lds r18,CountMilliseconds
+ 117 0098 3091 0000 		lds r19,(CountMilliseconds)+1
+ 118 009c 2150      		subi r18,lo8(-(-1))
+ 119 009e 3040      		sbci r19,hi8(-(-1))
+ 120 00a0 280F      		add r18,r24
+ 121 00a2 391F      		adc r19,r25
+ 122               	.LM17:
+ 123 00a4 C901      		movw r24,r18
+ 124               	.LVL1:
+ 125               	/* epilogue start */
+ 126 00a6 0895      		ret
+ 127               	.LFE5:
+ 129               	.global	CheckDelay
+ 131               	CheckDelay:
+ 132               	.LFB6:
+ 133               	.LM18:
+ 134               	.LVL2:
+ 135               	/* prologue: function */
+ 136               	/* frame size = 0 */
+ 137               	.LM19:
+ 138 00a8 2091 0000 		lds r18,CountMilliseconds
+ 139 00ac 3091 0000 		lds r19,(CountMilliseconds)+1
+ 140 00b0 821B      		sub r24,r18
+ 141 00b2 930B      		sbc r25,r19
+ 142               	.LVL3:
+ 143 00b4 8070      		andi r24,lo8(-32768)
+ 144 00b6 9078      		andi r25,hi8(-32768)
+ 145               	.LM20:
+ 146 00b8 892F      		mov r24,r25
+ 147               	/* epilogue start */
+ 148 00ba 0895      		ret
+ 149               	.LFE6:
+ 151               	.global	Delay_ms
+ 153               	Delay_ms:
+ 154               	.LFB7:
+ 155               	.LM21:
+ 156               	.LVL4:
+ 157               	/* prologue: function */
+ 158               	/* frame size = 0 */
+ 159               	.LBB6:
+ 160               	.LBB7:
+ 161               	.LM22:
+ 162 00bc 2091 0000 		lds r18,CountMilliseconds
+ 163 00c0 3091 0000 		lds r19,(CountMilliseconds)+1
+ 164               	.LVL5:
+ 165 00c4 2150      		subi r18,lo8(-(-1))
+ 166 00c6 3040      		sbci r19,hi8(-(-1))
+ 167 00c8 280F      		add r18,r24
+ 168 00ca 391F      		adc r19,r25
+ 169               	.L13:
+ 170               	.LBE7:
+ 171               	.LBE6:
+ 172               	.LBB8:
+ 173               	.LBB9:
+ 174               	.LM23:
+ 175 00cc 8091 0000 		lds r24,CountMilliseconds
+ 176 00d0 9091 0000 		lds r25,(CountMilliseconds)+1
+ 177               	.LVL6:
+ 178               	.LBE9:
+ 179               	.LBE8:
+ 180               	.LM24:
+ 181 00d4 A901      		movw r20,r18
+ 182 00d6 481B      		sub r20,r24
+ 183 00d8 590B      		sbc r21,r25
+ 184 00da CA01      		movw r24,r20
+ 185 00dc 8070      		andi r24,lo8(-32768)
+ 186 00de 9078      		andi r25,hi8(-32768)
+ 187 00e0 9923      		tst r25
+ 188 00e2 01F0      		breq .L13
+ 189               	/* epilogue start */
+ 190               	.LM25:
+ 191 00e4 0895      		ret
+ 192               	.LFE7:
+ 194               	.global	CountMilliseconds
+ 195               	.global	CountMilliseconds
+ 196               		.section .bss
+ 199               	CountMilliseconds:
+ 200 0000 0000      		.skip 2,0
+ 201               		.lcomm cnt.1835,1
+ 202               		.comm Timer0Overflow,1,1
+ 259               	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:00000000 timer0.c
+C:\Users\ADMINI~1\AppData\Local\Temp/ccarvNge.s:2      *ABS*:0000003f __SREG__
+C:\Users\ADMINI~1\AppData\Local\Temp/ccarvNge.s:3      *ABS*:0000003e __SP_H__
+C:\Users\ADMINI~1\AppData\Local\Temp/ccarvNge.s:4      *ABS*:0000003d __SP_L__
+C:\Users\ADMINI~1\AppData\Local\Temp/ccarvNge.s:5      *ABS*:00000034 __CCP__
+C:\Users\ADMINI~1\AppData\Local\Temp/ccarvNge.s:6      *ABS*:00000000 __tmp_reg__
+C:\Users\ADMINI~1\AppData\Local\Temp/ccarvNge.s:7      *ABS*:00000001 __zero_reg__
+C:\Users\ADMINI~1\AppData\Local\Temp/ccarvNge.s:18     .text:00000000 __vector_9
+                            *COM*:00000001 Timer0Overflow
+                             .bss:00000002 cnt.1835
+C:\Users\ADMINI~1\AppData\Local\Temp/ccarvNge.s:199    .bss:00000000 CountMilliseconds
+C:\Users\ADMINI~1\AppData\Local\Temp/ccarvNge.s:86     .text:00000082 Timer0_Init
+C:\Users\ADMINI~1\AppData\Local\Temp/ccarvNge.s:109    .text:00000094 SetDelay
+C:\Users\ADMINI~1\AppData\Local\Temp/ccarvNge.s:131    .text:000000a8 CheckDelay
+C:\Users\ADMINI~1\AppData\Local\Temp/ccarvNge.s:153    .text:000000bc Delay_ms
+
+UNDEFINED SYMBOLS
+I2C_Timeout
+PPM_Timeout
+SIO_Timeout
+__do_clear_bss

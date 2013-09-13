@@ -1,0 +1,122 @@
+   1               		.file	"analog.c"
+   2               	__SREG__ = 0x3f
+   3               	__SP_H__ = 0x3e
+   4               	__SP_L__ = 0x3d
+   5               	__CCP__  = 0x34
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+  15               	.Ltext0:
+  16               	.global	ADC_Init
+  18               	ADC_Init:
+  19               	.LFB3:
+  20               	.LM1:
+  21               	/* prologue: function */
+  22               	/* frame size = 0 */
+  23               	.LM2:
+  24 0000 86EA      		ldi r24,lo8(-90)
+  25 0002 86B9      		out 38-32,r24
+  26               	.LM3:
+  27 0004 87E0      		ldi r24,lo8(7)
+  28 0006 87B9      		out 39-32,r24
+  29               	.LM4:
+  30 0008 369A      		sbi 38-32,6
+  31               	/* epilogue start */
+  32               	.LM5:
+  33 000a 0895      		ret
+  34               	.LFE3:
+  36               	.global	AdConvert
+  38               	AdConvert:
+  39               	.LFB4:
+  40               	.LM6:
+  41               	/* prologue: function */
+  42               	/* frame size = 0 */
+  43               	.LM7:
+  44 000c 27B1      		in r18,39-32
+  45               	.LVL0:
+  46               	.LM8:
+  47 000e 96E0      		ldi r25,lo8(6)
+  48 0010 97B9      		out 39-32,r25
+  49               	.LM9:
+  50 0012 10BE      		out 80-32,__zero_reg__
+  51               	.LM10:
+  52 0014 83ED      		ldi r24,lo8(-45)
+  53 0016 86B9      		out 38-32,r24
+  54               	.LM11:
+  55 0018 349A      		sbi 38-32,4
+  56               	.LM12:
+  57 001a 97B9      		out 39-32,r25
+  58               	.LM13:
+  59 001c 369A      		sbi 38-32,6
+  60               	.L4:
+  61               	.LM14:
+  62 001e 349B      		sbis 38-32,4
+  63 0020 00C0      		rjmp .L4
+  64               	.LM15:
+  65 0022 27B9      		out 39-32,r18
+  66               	.LM16:
+  67 0024 44B1      		in r20,36-32
+  68 0026 55B1      		in r21,(36)+1-32
+  69               	.LVL1:
+  70 0028 440F      		lsl r20
+  71 002a 551F      		rol r21
+  72 002c 440F      		lsl r20
+  73 002e 551F      		rol r21
+  74               	.LM17:
+  75 0030 493C      		cpi r20,201
+  76 0032 5105      		cpc r21,__zero_reg__
+  77 0034 00F0      		brlo .L5
+  78 0036 48EC      		ldi r20,lo8(200)
+  79 0038 50E0      		ldi r21,hi8(200)
+  80               	.L5:
+  81 003a 8091 0000 		lds r24,Strom
+  82 003e 9091 0000 		lds r25,(Strom)+1
+  83 0042 9C01      		movw r18,r24
+  84               	.LVL2:
+  85 0044 63E0      		ldi r22,3
+  86 0046 220F      	1:	lsl r18
+  87 0048 331F      		rol r19
+  88 004a 6A95      		dec r22
+  89 004c 01F4      		brne 1b
+  90 004e 281B      		sub r18,r24
+  91 0050 390B      		sbc r19,r25
+  92 0052 240F      		add r18,r20
+  93 0054 351F      		adc r19,r21
+  94 0056 83E0      		ldi r24,3
+  95 0058 3695      	1:	lsr r19
+  96 005a 2795      		ror r18
+  97 005c 8A95      		dec r24
+  98 005e 01F4      		brne 1b
+  99 0060 3093 0000 		sts (Strom)+1,r19
+ 100 0064 2093 0000 		sts Strom,r18
+ 101               	.LM18:
+ 102 0068 8091 0000 		lds r24,Strom_max
+ 103 006c 90E0      		ldi r25,lo8(0)
+ 104 006e 8217      		cp r24,r18
+ 105 0070 9307      		cpc r25,r19
+ 106 0072 00F4      		brsh .L6
+ 107 0074 2093 0000 		sts Strom_max,r18
+ 108               	.L6:
+ 109               	.LM19:
+ 110 0078 16B8      		out 38-32,__zero_reg__
+ 111               	.LM20:
+ 112 007a 88E0      		ldi r24,lo8(8)
+ 113 007c 80BF      		out 80-32,r24
+ 114               	/* epilogue start */
+ 115               	.LM21:
+ 116 007e 0895      		ret
+ 117               	.LFE4:
+ 151               	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:00000000 analog.c
+C:\Users\ADMINI~1\AppData\Local\Temp/ccb9PBwc.s:2      *ABS*:0000003f __SREG__
+C:\Users\ADMINI~1\AppData\Local\Temp/ccb9PBwc.s:3      *ABS*:0000003e __SP_H__
+C:\Users\ADMINI~1\AppData\Local\Temp/ccb9PBwc.s:4      *ABS*:0000003d __SP_L__
+C:\Users\ADMINI~1\AppData\Local\Temp/ccb9PBwc.s:5      *ABS*:00000034 __CCP__
+C:\Users\ADMINI~1\AppData\Local\Temp/ccb9PBwc.s:6      *ABS*:00000000 __tmp_reg__
+C:\Users\ADMINI~1\AppData\Local\Temp/ccb9PBwc.s:7      *ABS*:00000001 __zero_reg__
+C:\Users\ADMINI~1\AppData\Local\Temp/ccb9PBwc.s:18     .text:00000000 ADC_Init
+C:\Users\ADMINI~1\AppData\Local\Temp/ccb9PBwc.s:38     .text:0000000c AdConvert
+
+UNDEFINED SYMBOLS
+Strom
+Strom_max

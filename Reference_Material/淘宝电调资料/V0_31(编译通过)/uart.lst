@@ -1,0 +1,517 @@
+   1               		.file	"uart.c"
+   2               	__SREG__ = 0x3f
+   3               	__SP_H__ = 0x3e
+   4               	__SP_L__ = 0x3d
+   5               	__CCP__  = 0x34
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+  15               	.Ltext0:
+  16               	.global	__vector_13
+  18               	__vector_13:
+  19               	.LFB3:
+  20               	.LM1:
+  21 0000 1F92      		push __zero_reg__
+  22 0002 0F92      		push r0
+  23 0004 0FB6      		in r0,__SREG__
+  24 0006 0F92      		push r0
+  25 0008 1124      		clr __zero_reg__
+  26               	/* prologue: Signal */
+  27               	/* frame size = 0 */
+  28               	/* epilogue start */
+  29               	.LM2:
+  30 000a 0F90      		pop r0
+  31 000c 0FBE      		out __SREG__,r0
+  32 000e 0F90      		pop r0
+  33 0010 1F90      		pop __zero_reg__
+  34 0012 1895      		reti
+  35               	.LFE3:
+  37               	.global	SendUart
+  39               	SendUart:
+  40               	.LFB4:
+  41               	.LM3:
+  42               	/* prologue: function */
+  43               	/* frame size = 0 */
+  44               	.LM4:
+  45 0014 5E9B      		sbis 43-32,6
+  46 0016 00C0      		rjmp .L8
+  47               	.LM5:
+  48 0018 8091 0000 		lds r24,UebertragungAbgeschlossen
+  49 001c 8823      		tst r24
+  50 001e 01F4      		brne .L5
+  51               	.LM6:
+  52 0020 8091 0000 		lds r24,ptr.1836
+  53 0024 9091 0000 		lds r25,(ptr.1836)+1
+  54 0028 0196      		adiw r24,1
+  55 002a 9093 0000 		sts (ptr.1836)+1,r25
+  56 002e 8093 0000 		sts ptr.1836,r24
+  57               	.LM7:
+  58 0032 FC01      		movw r30,r24
+  59 0034 E050      		subi r30,lo8(-(SendeBuffer))
+  60 0036 F040      		sbci r31,hi8(-(SendeBuffer))
+  61 0038 E081      		ld r30,Z
+  62               	.LVL0:
+  63               	.LM8:
+  64 003a ED30      		cpi r30,lo8(13)
+  65 003c 01F0      		breq .L6
+  66 003e 8436      		cpi r24,100
+  67 0040 9105      		cpc r25,__zero_reg__
+  68 0042 01F4      		brne .L7
+  69               	.L6:
+  70               	.LM9:
+  71 0044 1092 0000 		sts (ptr.1836)+1,__zero_reg__
+  72 0048 1092 0000 		sts ptr.1836,__zero_reg__
+  73               	.LM10:
+  74 004c 81E0      		ldi r24,lo8(1)
+  75 004e 8093 0000 		sts UebertragungAbgeschlossen,r24
+  76               	.L7:
+  77               	.LM11:
+  78 0052 589A      		sbi 43-32,0
+  79               	.LM12:
+  80 0054 ECB9      		out 44-32,r30
+  81 0056 0895      		ret
+  82               	.LVL1:
+  83               	.L5:
+  84               	.LM13:
+  85 0058 1092 0000 		sts (ptr.1836)+1,__zero_reg__
+  86 005c 1092 0000 		sts ptr.1836,__zero_reg__
+  87               	.L8:
+  88 0060 0895      		ret
+  89               	.LFE4:
+  91               	.global	__vector_11
+  93               	__vector_11:
+  94               	.LFB5:
+  95               	.LM14:
+  96 0062 1F92      		push __zero_reg__
+  97 0064 0F92      		push r0
+  98 0066 0FB6      		in r0,__SREG__
+  99 0068 0F92      		push r0
+ 100 006a 1124      		clr __zero_reg__
+ 101 006c 8F93      		push r24
+ 102               	/* prologue: Signal */
+ 103               	/* frame size = 0 */
+ 104               	.LM15:
+ 105 006e 8CB1      		in r24,44-32
+ 106 0070 8093 0000 		sts SioTmp,r24
+ 107               	.LM16:
+ 108 0074 8091 0000 		lds r24,SioTmp
+ 109 0078 853F      		cpi r24,lo8(-11)
+ 110 007a 01F4      		brne .L10
+ 111               	.LM17:
+ 112 007c 1092 0000 		sts serPacketCounter.1855,__zero_reg__
+ 113 0080 00C0      		rjmp .L13
+ 114               	.L10:
+ 115               	.LM18:
+ 116 0082 8091 0000 		lds r24,serPacketCounter.1855
+ 117 0086 8F5F      		subi r24,lo8(-(1))
+ 118 0088 8093 0000 		sts serPacketCounter.1855,r24
+ 119 008c 8430      		cpi r24,lo8(4)
+ 120 008e 01F4      		brne .L12
+ 121               	.LM19:
+ 122 0090 8091 0000 		lds r24,SioTmp
+ 123 0094 8093 0000 		sts SIO_Sollwert,r24
+ 124               	.LM20:
+ 125 0098 88EC      		ldi r24,lo8(-56)
+ 126 009a 8093 0000 		sts SIO_Timeout,r24
+ 127 009e 00C0      		rjmp .L13
+ 128               	.L12:
+ 129               	.LM21:
+ 130 00a0 8536      		cpi r24,lo8(101)
+ 131 00a2 00F0      		brlo .L13
+ 132 00a4 84E6      		ldi r24,lo8(100)
+ 133 00a6 8093 0000 		sts serPacketCounter.1855,r24
+ 134               	.L13:
+ 135               	/* epilogue start */
+ 136               	.LM22:
+ 137 00aa 8F91      		pop r24
+ 138 00ac 0F90      		pop r0
+ 139 00ae 0FBE      		out __SREG__,r0
+ 140 00b0 0F90      		pop r0
+ 141 00b2 1F90      		pop __zero_reg__
+ 142 00b4 1895      		reti
+ 143               	.LFE5:
+ 145               	.global	AddCRC
+ 147               	AddCRC:
+ 148               	.LFB6:
+ 149               	.LM23:
+ 150               	.LVL2:
+ 151               	/* prologue: function */
+ 152               	/* frame size = 0 */
+ 153 00b6 DC01      		movw r26,r24
+ 154               	.LM24:
+ 155 00b8 20E0      		ldi r18,lo8(0)
+ 156 00ba 30E0      		ldi r19,hi8(0)
+ 157               	.LVL3:
+ 158 00bc 40E0      		ldi r20,lo8(0)
+ 159 00be 50E0      		ldi r21,hi8(0)
+ 160               	.LVL4:
+ 161 00c0 00C0      		rjmp .L15
+ 162               	.LVL5:
+ 163               	.L16:
+ 164               	.LM25:
+ 165 00c2 FA01      		movw r30,r20
+ 166 00c4 E050      		subi r30,lo8(-(SendeBuffer))
+ 167 00c6 F040      		sbci r31,hi8(-(SendeBuffer))
+ 168 00c8 8081      		ld r24,Z
+ 169 00ca 280F      		add r18,r24
+ 170 00cc 311D      		adc r19,__zero_reg__
+ 171               	.LM26:
+ 172 00ce 4F5F      		subi r20,lo8(-(1))
+ 173 00d0 5F4F      		sbci r21,hi8(-(1))
+ 174               	.LVL6:
+ 175               	.L15:
+ 176 00d2 4A17      		cp r20,r26
+ 177 00d4 5B07      		cpc r21,r27
+ 178 00d6 00F0      		brlo .L16
+ 179               	.LM27:
+ 180 00d8 3F70      		andi r19,hi8(4095)
+ 181               	.LVL7:
+ 182               	.LM28:
+ 183 00da C901      		movw r24,r18
+ 184 00dc 36E0      		ldi r19,6
+ 185 00de 9695      	1:	lsr r25
+ 186 00e0 8795      		ror r24
+ 187 00e2 3A95      		dec r19
+ 188 00e4 01F4      		brne 1b
+ 189 00e6 835C      		subi r24,lo8(-(61))
+ 190 00e8 FD01      		movw r30,r26
+ 191 00ea E050      		subi r30,lo8(-(SendeBuffer))
+ 192 00ec F040      		sbci r31,hi8(-(SendeBuffer))
+ 193 00ee 8083      		st Z,r24
+ 194 00f0 1196      		adiw r26,1
+ 195               	.LVL8:
+ 196               	.LM29:
+ 197 00f2 2F73      		andi r18,lo8(63)
+ 198               	.LVL9:
+ 199 00f4 235C      		subi r18,lo8(-(61))
+ 200 00f6 FD01      		movw r30,r26
+ 201 00f8 E050      		subi r30,lo8(-(SendeBuffer))
+ 202 00fa F040      		sbci r31,hi8(-(SendeBuffer))
+ 203 00fc 2083      		st Z,r18
+ 204               	.LM30:
+ 205 00fe A050      		subi r26,lo8(-(SendeBuffer+1))
+ 206 0100 B040      		sbci r27,hi8(-(SendeBuffer+1))
+ 207 0102 8DE0      		ldi r24,lo8(13)
+ 208 0104 8C93      		st X,r24
+ 209               	.LM31:
+ 210 0106 1092 0000 		sts UebertragungAbgeschlossen,__zero_reg__
+ 211               	.LM32:
+ 212 010a 8091 0000 		lds r24,SendeBuffer
+ 213 010e 8CB9      		out 44-32,r24
+ 214               	/* epilogue start */
+ 215               	.LM33:
+ 216 0110 0895      		ret
+ 217               	.LFE6:
+ 219               	.global	SendOutData
+ 221               	SendOutData:
+ 222               	.LFB7:
+ 223               	.LM34:
+ 224               	.LVL10:
+ 225 0112 CF93      		push r28
+ 226 0114 DF93      		push r29
+ 227               	/* prologue: function */
+ 228               	/* frame size = 0 */
+ 229 0116 EA01      		movw r28,r20
+ 230 0118 B22F      		mov r27,r18
+ 231               	.LM35:
+ 232 011a 93E2      		ldi r25,lo8(35)
+ 233 011c 9093 0000 		sts SendeBuffer,r25
+ 234               	.LM36:
+ 235 0120 6093 0000 		sts SendeBuffer+1,r22
+ 236               	.LM37:
+ 237 0124 8093 0000 		sts SendeBuffer+2,r24
+ 238 0128 A0E0      		ldi r26,lo8(0)
+ 239               	.LVL11:
+ 240 012a 63E0      		ldi r22,lo8(3)
+ 241 012c 70E0      		ldi r23,hi8(3)
+ 242               	.LVL12:
+ 243 012e 00C0      		rjmp .L19
+ 244               	.LVL13:
+ 245               	.L23:
+ 246               	.LM38:
+ 247 0130 FE01      		movw r30,r28
+ 248 0132 EA0F      		add r30,r26
+ 249 0134 F11D      		adc r31,__zero_reg__
+ 250 0136 9081      		ld r25,Z
+ 251               	.LVL14:
+ 252 0138 AF5F      		subi r26,lo8(-(1))
+ 253 013a B150      		subi r27,lo8(-(-1))
+ 254               	.LM39:
+ 255 013c 01F4      		brne .L20
+ 256 013e 30E0      		ldi r19,lo8(0)
+ 257 0140 40E0      		ldi r20,lo8(0)
+ 258               	.LVL15:
+ 259 0142 00C0      		rjmp .L21
+ 260               	.LVL16:
+ 261               	.L20:
+ 262 0144 FE01      		movw r30,r28
+ 263 0146 EA0F      		add r30,r26
+ 264 0148 F11D      		adc r31,__zero_reg__
+ 265 014a 4081      		ld r20,Z
+ 266               	.LVL17:
+ 267 014c AF5F      		subi r26,lo8(-(1))
+ 268 014e B150      		subi r27,lo8(-(-1))
+ 269               	.LM40:
+ 270 0150 01F4      		brne .L22
+ 271 0152 30E0      		ldi r19,lo8(0)
+ 272 0154 00C0      		rjmp .L21
+ 273               	.L22:
+ 274 0156 FE01      		movw r30,r28
+ 275 0158 EA0F      		add r30,r26
+ 276 015a F11D      		adc r31,__zero_reg__
+ 277 015c 3081      		ld r19,Z
+ 278 015e AF5F      		subi r26,lo8(-(1))
+ 279 0160 B150      		subi r27,lo8(-(-1))
+ 280               	.L21:
+ 281               	.LM41:
+ 282 0162 892F      		mov r24,r25
+ 283               	.LVL18:
+ 284 0164 8695      		lsr r24
+ 285 0166 8695      		lsr r24
+ 286 0168 835C      		subi r24,lo8(-(61))
+ 287 016a FB01      		movw r30,r22
+ 288 016c E050      		subi r30,lo8(-(SendeBuffer))
+ 289 016e F040      		sbci r31,hi8(-(SendeBuffer))
+ 290 0170 8083      		st Z,r24
+ 291               	.LM42:
+ 292 0172 242F      		mov r18,r20
+ 293 0174 2295      		swap r18
+ 294 0176 2F70      		andi r18,lo8(15)
+ 295 0178 892F      		mov r24,r25
+ 296 017a 90E0      		ldi r25,lo8(0)
+ 297               	.LVL19:
+ 298 017c 8370      		andi r24,lo8(3)
+ 299 017e 9070      		andi r25,hi8(3)
+ 300               	.LVL20:
+ 301 0180 54E0      		ldi r21,4
+ 302 0182 880F      	1:	lsl r24
+ 303 0184 991F      		rol r25
+ 304 0186 5A95      		dec r21
+ 305 0188 01F4      		brne 1b
+ 306               	.LVL21:
+ 307 018a 282B      		or r18,r24
+ 308 018c 235C      		subi r18,lo8(-(61))
+ 309 018e FB01      		movw r30,r22
+ 310 0190 E050      		subi r30,lo8(-(SendeBuffer+1))
+ 311 0192 F040      		sbci r31,hi8(-(SendeBuffer+1))
+ 312 0194 2083      		st Z,r18
+ 313               	.LM43:
+ 314 0196 842F      		mov r24,r20
+ 315               	.LVL22:
+ 316 0198 90E0      		ldi r25,lo8(0)
+ 317               	.LVL23:
+ 318 019a 8F70      		andi r24,lo8(15)
+ 319 019c 9070      		andi r25,hi8(15)
+ 320               	.LVL24:
+ 321 019e 880F      		lsl r24
+ 322 01a0 991F      		rol r25
+ 323 01a2 880F      		lsl r24
+ 324 01a4 991F      		rol r25
+ 325               	.LVL25:
+ 326 01a6 232F      		mov r18,r19
+ 327 01a8 2295      		swap r18
+ 328 01aa 2695      		lsr r18
+ 329 01ac 2695      		lsr r18
+ 330 01ae 2370      		andi r18,lo8(3)
+ 331 01b0 282B      		or r18,r24
+ 332 01b2 235C      		subi r18,lo8(-(61))
+ 333 01b4 FB01      		movw r30,r22
+ 334 01b6 E050      		subi r30,lo8(-(SendeBuffer+2))
+ 335 01b8 F040      		sbci r31,hi8(-(SendeBuffer+2))
+ 336 01ba 2083      		st Z,r18
+ 337               	.LM44:
+ 338 01bc 3F73      		andi r19,lo8(63)
+ 339 01be 335C      		subi r19,lo8(-(61))
+ 340 01c0 FB01      		movw r30,r22
+ 341 01c2 E050      		subi r30,lo8(-(SendeBuffer+3))
+ 342 01c4 F040      		sbci r31,hi8(-(SendeBuffer+3))
+ 343 01c6 3083      		st Z,r19
+ 344 01c8 6C5F      		subi r22,lo8(-(4))
+ 345 01ca 7F4F      		sbci r23,hi8(-(4))
+ 346               	.LVL26:
+ 347               	.L19:
+ 348               	.LM45:
+ 349 01cc BB23      		tst r27
+ 350 01ce 01F0      		breq .+2
+ 351 01d0 00C0      		rjmp .L23
+ 352               	.LM46:
+ 353 01d2 CB01      		movw r24,r22
+ 354               	.LVL27:
+ 355 01d4 00D0      		rcall AddCRC
+ 356               	.LVL28:
+ 357               	/* epilogue start */
+ 358               	.LM47:
+ 359 01d6 DF91      		pop r29
+ 360 01d8 CF91      		pop r28
+ 361               	.LVL29:
+ 362 01da 0895      		ret
+ 363               	.LFE7:
+ 365               	.global	uart_putchar
+ 367               	uart_putchar:
+ 368               	.LFB8:
+ 369               	.LM48:
+ 370               	.LVL30:
+ 371 01dc 1F93      		push r17
+ 372               	/* prologue: function */
+ 373               	/* frame size = 0 */
+ 374 01de 182F      		mov r17,r24
+ 375               	.LM49:
+ 376 01e0 8A30      		cpi r24,lo8(10)
+ 377 01e2 01F4      		brne .L28
+ 378               	.LM50:
+ 379 01e4 8DE0      		ldi r24,lo8(13)
+ 380               	.LVL31:
+ 381 01e6 00D0      		rcall uart_putchar
+ 382               	.LVL32:
+ 383               	.L28:
+ 384               	.LM51:
+ 385 01e8 5D9B      		sbis 43-32,5
+ 386 01ea 00C0      		rjmp .L28
+ 387               	.LM52:
+ 388 01ec 1CB9      		out 44-32,r17
+ 389               	.LM53:
+ 390 01ee 80E0      		ldi r24,lo8(0)
+ 391 01f0 90E0      		ldi r25,hi8(0)
+ 392               	/* epilogue start */
+ 393 01f2 1F91      		pop r17
+ 394               	.LVL33:
+ 395 01f4 0895      		ret
+ 396               	.LFE8:
+ 398               	.global	WriteProgramData
+ 400               	WriteProgramData:
+ 401               	.LFB9:
+ 402               	.LM54:
+ 403               	.LVL34:
+ 404               	/* prologue: function */
+ 405               	/* frame size = 0 */
+ 406               	/* epilogue start */
+ 407               	.LM55:
+ 408 01f6 0895      		ret
+ 409               	.LFE9:
+ 411               	.global	DatenUebertragung
+ 413               	DatenUebertragung:
+ 414               	.LFB11:
+ 415               	.LM56:
+ 416               	/* prologue: function */
+ 417               	/* frame size = 0 */
+ 418               	.LM57:
+ 419 01f8 8091 0000 		lds r24,Debug_Timer
+ 420 01fc 9091 0000 		lds r25,(Debug_Timer)+1
+ 421 0200 00D0      		rcall CheckDelay
+ 422 0202 8823      		tst r24
+ 423 0204 01F0      		breq .L34
+ 424 0206 8091 0000 		lds r24,UebertragungAbgeschlossen
+ 425 020a 8823      		tst r24
+ 426 020c 01F0      		breq .L34
+ 427               	.LM58:
+ 428 020e 84E4      		ldi r24,lo8(68)
+ 429 0210 6091 0000 		lds r22,MeineSlaveAdresse
+ 430 0214 40E0      		ldi r20,lo8(DebugOut)
+ 431 0216 50E0      		ldi r21,hi8(DebugOut)
+ 432 0218 22E2      		ldi r18,lo8(34)
+ 433 021a 00D0      		rcall SendOutData
+ 434               	.LM59:
+ 435 021c 82E3      		ldi r24,lo8(50)
+ 436 021e 90E0      		ldi r25,hi8(50)
+ 437 0220 00D0      		rcall SetDelay
+ 438 0222 9093 0000 		sts (Debug_Timer)+1,r25
+ 439 0226 8093 0000 		sts Debug_Timer,r24
+ 440               	.L34:
+ 441 022a 0895      		ret
+ 442               	.LFE11:
+ 444               	.global	UART_Init
+ 446               	UART_Init:
+ 447               	.LFB10:
+ 448               	.LM60:
+ 449               	/* prologue: function */
+ 450               	/* frame size = 0 */
+ 451               	.LM61:
+ 452 022c 88E1      		ldi r24,lo8(24)
+ 453 022e 8AB9      		out 42-32,r24
+ 454               	.LM62:
+ 455 0230 599A      		sbi 43-32,1
+ 456               	.LM63:
+ 457 0232 579A      		sbi 42-32,7
+ 458               	.LM64:
+ 459 0234 89E1      		ldi r24,lo8(25)
+ 460 0236 89B9      		out 41-32,r24
+ 461               	.LM65:
+ 462 0238 80E0      		ldi r24,lo8(gs(uart_putchar))
+ 463 023a 90E0      		ldi r25,hi8(gs(uart_putchar))
+ 464 023c 60E0      		ldi r22,lo8(0)
+ 465 023e 70E0      		ldi r23,hi8(0)
+ 466 0240 00D0      		rcall fdevopen
+ 467               	.LM66:
+ 468 0242 88EC      		ldi r24,lo8(200)
+ 469 0244 90E0      		ldi r25,hi8(200)
+ 470 0246 00D0      		rcall SetDelay
+ 471 0248 9093 0000 		sts (Debug_Timer)+1,r25
+ 472 024c 8093 0000 		sts Debug_Timer,r24
+ 473               	.LM67:
+ 474 0250 8AE2      		ldi r24,lo8(42)
+ 475 0252 8CB9      		out 44-32,r24
+ 476               	/* epilogue start */
+ 477               	.LM68:
+ 478 0254 0895      		ret
+ 479               	.LFE10:
+ 481               	.global	SIO_Sollwert
+ 482               	.global	SIO_Sollwert
+ 483               		.section .bss
+ 486               	SIO_Sollwert:
+ 487 0000 00        		.skip 1,0
+ 488               	.global	SioTmp
+ 489               	.global	SioTmp
+ 492               	SioTmp:
+ 493 0001 00        		.skip 1,0
+ 494               	.global	NeuerDatensatzEmpfangen
+ 495               	.global	NeuerDatensatzEmpfangen
+ 498               	NeuerDatensatzEmpfangen:
+ 499 0002 00        		.skip 1,0
+ 500               	.global	UebertragungAbgeschlossen
+ 501               		.data
+ 504               	UebertragungAbgeschlossen:
+ 505 0000 01        		.byte	1
+ 508               	serPacketCounter.1855:
+ 509 0001 64        		.byte	100
+ 510               		.lcomm ptr.1836,2
+ 511               		.comm MeineSlaveAdresse,1,1
+ 512               		.comm Debug_Timer,2,1
+ 513               		.comm DebugOut,34,1
+ 514               		.comm SendeBuffer,100,1
+ 515               		.comm RxdBuffer,100,1
+ 604               	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:00000000 uart.c
+C:\Users\ADMINI~1\AppData\Local\Temp/cc8PQOe3.s:2      *ABS*:0000003f __SREG__
+C:\Users\ADMINI~1\AppData\Local\Temp/cc8PQOe3.s:3      *ABS*:0000003e __SP_H__
+C:\Users\ADMINI~1\AppData\Local\Temp/cc8PQOe3.s:4      *ABS*:0000003d __SP_L__
+C:\Users\ADMINI~1\AppData\Local\Temp/cc8PQOe3.s:5      *ABS*:00000034 __CCP__
+C:\Users\ADMINI~1\AppData\Local\Temp/cc8PQOe3.s:6      *ABS*:00000000 __tmp_reg__
+C:\Users\ADMINI~1\AppData\Local\Temp/cc8PQOe3.s:7      *ABS*:00000001 __zero_reg__
+C:\Users\ADMINI~1\AppData\Local\Temp/cc8PQOe3.s:18     .text:00000000 __vector_13
+C:\Users\ADMINI~1\AppData\Local\Temp/cc8PQOe3.s:39     .text:00000014 SendUart
+C:\Users\ADMINI~1\AppData\Local\Temp/cc8PQOe3.s:504    .data:00000000 UebertragungAbgeschlossen
+                             .bss:00000003 ptr.1836
+                            *COM*:00000064 SendeBuffer
+C:\Users\ADMINI~1\AppData\Local\Temp/cc8PQOe3.s:93     .text:00000062 __vector_11
+C:\Users\ADMINI~1\AppData\Local\Temp/cc8PQOe3.s:492    .bss:00000001 SioTmp
+C:\Users\ADMINI~1\AppData\Local\Temp/cc8PQOe3.s:508    .data:00000001 serPacketCounter.1855
+C:\Users\ADMINI~1\AppData\Local\Temp/cc8PQOe3.s:486    .bss:00000000 SIO_Sollwert
+C:\Users\ADMINI~1\AppData\Local\Temp/cc8PQOe3.s:147    .text:000000b6 AddCRC
+C:\Users\ADMINI~1\AppData\Local\Temp/cc8PQOe3.s:221    .text:00000112 SendOutData
+C:\Users\ADMINI~1\AppData\Local\Temp/cc8PQOe3.s:367    .text:000001dc uart_putchar
+C:\Users\ADMINI~1\AppData\Local\Temp/cc8PQOe3.s:400    .text:000001f6 WriteProgramData
+C:\Users\ADMINI~1\AppData\Local\Temp/cc8PQOe3.s:413    .text:000001f8 DatenUebertragung
+                            *COM*:00000002 Debug_Timer
+                            *COM*:00000001 MeineSlaveAdresse
+                            *COM*:00000022 DebugOut
+C:\Users\ADMINI~1\AppData\Local\Temp/cc8PQOe3.s:446    .text:0000022c UART_Init
+C:\Users\ADMINI~1\AppData\Local\Temp/cc8PQOe3.s:498    .bss:00000002 NeuerDatensatzEmpfangen
+                            *COM*:00000064 RxdBuffer
+
+UNDEFINED SYMBOLS
+SIO_Timeout
+CheckDelay
+SetDelay
+fdevopen
+__do_copy_data
+__do_clear_bss

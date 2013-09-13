@@ -1,0 +1,1010 @@
+   1               		.file	"main.c"
+   2               	__SREG__ = 0x3f
+   3               	__SP_H__ = 0x3e
+   4               	__SP_L__ = 0x3d
+   5               	__CCP__  = 0x34
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+  15               	.Ltext0:
+  16               	.global	SetPWM
+  18               	SetPWM:
+  19               	.LFB3:
+  20               	.LM1:
+  21               	/* prologue: function */
+  22               	/* frame size = 0 */
+  23               	.LM2:
+  24 0000 2091 0000 		lds r18,PWM
+  25               	.LVL0:
+  26               	.LM3:
+  27 0004 8091 0000 		lds r24,MaxPWM
+  28               	.LVL1:
+  29 0008 8217      		cp r24,r18
+  30 000a 00F4      		brsh .L2
+  31               	.LM4:
+  32 000c AB9A      		sbi 53-32,3
+  33 000e 282F      		mov r18,r24
+  34               	.L2:
+  35               	.LM5:
+  36 0010 8091 0000 		lds r24,Strom
+  37 0014 9091 0000 		lds r25,(Strom)+1
+  38               	.LVL2:
+  39 0018 8338      		cpi r24,131
+  40 001a 9105      		cpc r25,__zero_reg__
+  41 001c 00F0      		brlo .L3
+  42               	.LM6:
+  43 001e 1BBC      		out (74)+1-32,__zero_reg__
+  44 0020 1ABC      		out 74-32,__zero_reg__
+  45 0022 19BC      		out (72)+1-32,__zero_reg__
+  46 0024 18BC      		out 72-32,__zero_reg__
+  47 0026 13BC      		out 67-32,__zero_reg__
+  48               	.LM7:
+  49 0028 AB9A      		sbi 53-32,3
+  50               	.LM8:
+  51 002a 0197      		sbiw r24,1
+  52 002c 9093 0000 		sts (Strom)+1,r25
+  53 0030 8093 0000 		sts Strom,r24
+  54 0034 0895      		ret
+  55               	.L3:
+  56               	.LM9:
+  57 0036 822F      		mov r24,r18
+  58 0038 90E0      		ldi r25,lo8(0)
+  59 003a 880F      		lsl r24
+  60 003c 991F      		rol r25
+  61 003e 9BBD      		out (74)+1-32,r25
+  62 0040 8ABD      		out 74-32,r24
+  63 0042 99BD      		out (72)+1-32,r25
+  64 0044 88BD      		out 72-32,r24
+  65 0046 23BD      		out 67-32,r18
+  66 0048 0895      		ret
+  67               	.LFE3:
+  69               	.global	PWM_Init
+  71               	PWM_Init:
+  72               	.LFB4:
+  73               	.LM10:
+  74               	/* prologue: function */
+  75               	/* frame size = 0 */
+  76               	.LM11:
+  77 004a 82E0      		ldi r24,lo8(2)
+  78 004c 8FBD      		out 79-32,r24
+  79 004e 81E4      		ldi r24,lo8(65)
+  80 0050 85BD      		out 69-32,r24
+  81 0052 85B3      		in r24,53-32
+  82 0054 817F      		andi r24,lo8(-15)
+  83 0056 85BB      		out 53-32,r24
+  84               	.LM12:
+  85 0058 89E0      		ldi r24,lo8(9)
+  86 005a 8EBD      		out 78-32,r24
+  87               	/* epilogue start */
+  88               	.LM13:
+  89 005c 0895      		ret
+  90               	.LFE4:
+  92               	.global	Wait
+  94               	Wait:
+  95               	.LFB5:
+  96               	.LM14:
+  97               	.LVL3:
+  98               	/* prologue: function */
+  99               	/* frame size = 0 */
+ 100               	.LM15:
+ 101 005e 92B7      		in r25,82-32
+ 102 0060 980F      		add r25,r24
+ 103               	.L9:
+ 104               	.LM16:
+ 105 0062 82B7      		in r24,82-32
+ 106               	.LVL4:
+ 107 0064 891B      		sub r24,r25
+ 108               	.LVL5:
+ 109 0066 87FD      		sbrc r24,7
+ 110 0068 00C0      		rjmp .L9
+ 111               	/* epilogue start */
+ 112               	.LM17:
+ 113 006a 0895      		ret
+ 114               	.LFE5:
+ 116               	.global	SollwertErmittlung
+ 118               	SollwertErmittlung:
+ 119               	.LFB7:
+ 120               	.LM18:
+ 121               	/* prologue: function */
+ 122               	/* frame size = 0 */
+ 123               	.LM19:
+ 124 006c 8091 0000 		lds r24,I2C_Timeout
+ 125 0070 9091 0000 		lds r25,(I2C_Timeout)+1
+ 126 0074 892B      		or r24,r25
+ 127 0076 01F0      		breq .+2
+ 128 0078 00C0      		rjmp .L13
+ 129               	.LM20:
+ 130 007a 8091 0000 		lds r24,SIO_Timeout
+ 131 007e 8823      		tst r24
+ 132 0080 01F0      		breq .L14
+ 133               	.LM21:
+ 134 0082 9091 0000 		lds r25,SIO_Sollwert
+ 135 0086 8FEF      		ldi r24,lo8(-1)
+ 136 0088 989F      		mul r25,r24
+ 137 008a C001      		movw r24,r0
+ 138 008c 1124      		clr r1
+ 139 008e 68EC      		ldi r22,lo8(200)
+ 140 0090 70E0      		ldi r23,hi8(200)
+ 141 0092 00D0      		rcall __udivmodhi4
+ 142 0094 7093 0000 		sts (sollwert.1908)+1,r23
+ 143 0098 6093 0000 		sts sollwert.1908,r22
+ 144 009c 00C0      		rjmp .L15
+ 145               	.L14:
+ 146               	.LM22:
+ 147 009e 8091 0000 		lds r24,PPM_Timeout
+ 148 00a2 8823      		tst r24
+ 149 00a4 01F0      		breq .L16
+ 150               	.LM23:
+ 151 00a6 2091 0000 		lds r18,PPM_Signal
+ 152 00aa 3091 0000 		lds r19,(PPM_Signal)+1
+ 153               	.LVL6:
+ 154               	.LM24:
+ 155 00ae 41E0      		ldi r20,hi8(301)
+ 156 00b0 2D32      		cpi r18,lo8(301)
+ 157 00b2 3407      		cpc r19,r20
+ 158 00b4 00F4      		brsh .L17
+ 159               	.LM25:
+ 160 00b6 293C      		cpi r18,201
+ 161 00b8 3105      		cpc r19,__zero_reg__
+ 162 00ba 00F4      		brsh .L18
+ 163               	.LM26:
+ 164 00bc 2B30      		cpi r18,11
+ 165 00be 3105      		cpc r19,__zero_reg__
+ 166 00c0 00F4      		brsh .L19
+ 167               	.L17:
+ 168 00c2 1092 0000 		sts (sollwert.1908)+1,__zero_reg__
+ 169 00c6 1092 0000 		sts sollwert.1908,__zero_reg__
+ 170 00ca 00C0      		rjmp .L24
+ 171               	.L18:
+ 172 00cc 28EC      		ldi r18,lo8(200)
+ 173 00ce 30E0      		ldi r19,hi8(200)
+ 174               	.L19:
+ 175               	.LM27:
+ 176 00d0 8CEF      		ldi r24,lo8(252)
+ 177 00d2 90E0      		ldi r25,hi8(252)
+ 178 00d4 AC01      		movw r20,r24
+ 179 00d6 249F      		mul r18,r20
+ 180 00d8 C001      		movw r24,r0
+ 181 00da 259F      		mul r18,r21
+ 182 00dc 900D      		add r25,r0
+ 183 00de 349F      		mul r19,r20
+ 184 00e0 900D      		add r25,r0
+ 185 00e2 1124      		clr r1
+ 186 00e4 885D      		subi r24,lo8(-(-2520))
+ 187 00e6 9940      		sbci r25,hi8(-(-2520))
+ 188 00e8 64EB      		ldi r22,lo8(180)
+ 189 00ea 70E0      		ldi r23,hi8(180)
+ 190 00ec 00D0      		rcall __udivmodhi4
+ 191 00ee 6D5F      		subi r22,lo8(-(3))
+ 192 00f0 7F4F      		sbci r23,hi8(-(3))
+ 193 00f2 7093 0000 		sts (sollwert.1908)+1,r23
+ 194 00f6 6093 0000 		sts sollwert.1908,r22
+ 195 00fa 00C0      		rjmp .L24
+ 196               	.LVL7:
+ 197               	.L16:
+ 198               	.LM28:
+ 199 00fc 8091 0000 		lds r24,sollwert.1908
+ 200 0100 9091 0000 		lds r25,(sollwert.1908)+1
+ 201 0104 0097      		sbiw r24,0
+ 202 0106 01F0      		breq .L21
+ 203 0108 0197      		sbiw r24,1
+ 204 010a 9093 0000 		sts (sollwert.1908)+1,r25
+ 205 010e 8093 0000 		sts sollwert.1908,r24
+ 206               	.L21:
+ 207               	.LM29:
+ 208 0112 AB9A      		sbi 53-32,3
+ 209 0114 00C0      		rjmp .L15
+ 210               	.L13:
+ 211               	.LM30:
+ 212 0116 8091 0000 		lds r24,I2C_RXBuffer
+ 213 011a 8093 0000 		sts sollwert.1908,r24
+ 214 011e 1092 0000 		sts sollwert.1908+1,__zero_reg__
+ 215               	.LVL8:
+ 216               	.L24:
+ 217               	.LM31:
+ 218 0122 AB98      		cbi 53-32,3
+ 219               	.L15:
+ 220               	.LM32:
+ 221 0124 8091 0000 		lds r24,sollwert.1908
+ 222 0128 9091 0000 		lds r25,(sollwert.1908)+1
+ 223 012c 8F3F      		cpi r24,255
+ 224 012e 9105      		cpc r25,__zero_reg__
+ 225 0130 01F0      		breq .L22
+ 226 0132 00F0      		brlo .L22
+ 227 0134 8FEF      		ldi r24,lo8(255)
+ 228 0136 90E0      		ldi r25,hi8(255)
+ 229 0138 9093 0000 		sts (sollwert.1908)+1,r25
+ 230 013c 8093 0000 		sts sollwert.1908,r24
+ 231               	.L22:
+ 232               	.LM33:
+ 233 0140 8091 0000 		lds r24,sollwert.1908
+ 234               	/* epilogue start */
+ 235 0144 0895      		ret
+ 236               	.LFE7:
+ 238               	.global	DebugAusgaben
+ 240               	DebugAusgaben:
+ 241               	.LFB8:
+ 242               	.LM34:
+ 243               	/* prologue: function */
+ 244               	/* frame size = 0 */
+ 245               	.LM35:
+ 246 0146 8091 0000 		lds r24,Strom
+ 247 014a 9091 0000 		lds r25,(Strom)+1
+ 248 014e 9093 0000 		sts (DebugOut+18)+1,r25
+ 249 0152 8093 0000 		sts DebugOut+18,r24
+ 250               	.LM36:
+ 251 0156 8091 0000 		lds r24,Mittelstrom
+ 252 015a 8093 0000 		sts DebugOut+20,r24
+ 253 015e 1092 0000 		sts DebugOut+21,__zero_reg__
+ 254               	.LM37:
+ 255 0162 8091 0000 		lds r24,SIO_Drehzahl
+ 256 0166 9091 0000 		lds r25,(SIO_Drehzahl)+1
+ 257 016a 9093 0000 		sts (DebugOut+22)+1,r25
+ 258 016e 8093 0000 		sts DebugOut+22,r24
+ 259               	.LM38:
+ 260 0172 8091 0000 		lds r24,PPM_Signal
+ 261 0176 9091 0000 		lds r25,(PPM_Signal)+1
+ 262 017a 9093 0000 		sts (DebugOut+24)+1,r25
+ 263 017e 8093 0000 		sts DebugOut+24,r24
+ 264               	/* epilogue start */
+ 265               	.LM39:
+ 266 0182 0895      		ret
+ 267               	.LFE8:
+ 269               	.global	Anwerfen
+ 271               	Anwerfen:
+ 272               	.LFB6:
+ 273               	.LM40:
+ 274               	.LVL9:
+ 275 0184 9F92      		push r9
+ 276 0186 AF92      		push r10
+ 277 0188 BF92      		push r11
+ 278 018a CF92      		push r12
+ 279 018c DF92      		push r13
+ 280 018e EF92      		push r14
+ 281 0190 FF92      		push r15
+ 282 0192 0F93      		push r16
+ 283 0194 1F93      		push r17
+ 284               	/* prologue: function */
+ 285               	/* frame size = 0 */
+ 286 0196 982E      		mov r9,r24
+ 287               	.LM41:
+ 288 0198 1092 0000 		sts CompInterruptFreigabe,__zero_reg__
+ 289 019c 4398      		cbi 40-32,3
+ 290               	.LM42:
+ 291 019e 85E0      		ldi r24,lo8(5)
+ 292 01a0 90E0      		ldi r25,hi8(5)
+ 293               	.LVL10:
+ 294 01a2 9093 0000 		sts (PWM)+1,r25
+ 295 01a6 8093 0000 		sts PWM,r24
+ 296               	.LM43:
+ 297 01aa 00D0      		rcall SetPWM
+ 298               	.LM44:
+ 299 01ac 00D0      		rcall Manuell
+ 300               	.LM45:
+ 301 01ae 88EC      		ldi r24,lo8(200)
+ 302 01b0 90E0      		ldi r25,hi8(200)
+ 303 01b2 00D0      		rcall Delay_ms
+ 304               	.LM46:
+ 305 01b4 9092 0000 		sts PWM,r9
+ 306 01b8 1092 0000 		sts PWM+1,__zero_reg__
+ 307 01bc 4CE2      		ldi r20,lo8(300)
+ 308 01be A42E      		mov r10,r20
+ 309 01c0 41E0      		ldi r20,hi8(300)
+ 310 01c2 B42E      		mov r11,r20
+ 311 01c4 C12C      		mov r12,__zero_reg__
+ 312 01c6 D12C      		mov r13,__zero_reg__
+ 313               	.LVL11:
+ 314               	.L39:
+ 315 01c8 EE24      		clr r14
+ 316 01ca FF24      		clr r15
+ 317 01cc 8701      		movw r16,r14
+ 318               	.LVL12:
+ 319               	.L31:
+ 320               	.LM47:
+ 321 01ce 8091 0000 		lds r24,UebertragungAbgeschlossen
+ 322 01d2 8823      		tst r24
+ 323 01d4 01F4      		brne .L28
+ 324 01d6 00D0      		rcall SendUart
+ 325               	.LVL13:
+ 326 01d8 00C0      		rjmp .L29
+ 327               	.LVL14:
+ 328               	.L28:
+ 329               	.LM48:
+ 330 01da 00D0      		rcall DatenUebertragung
+ 331               	.LVL15:
+ 332               	.L29:
+ 333               	.LBB6:
+ 334               	.LBB7:
+ 335               	.LM49:
+ 336 01dc 82B7      		in r24,82-32
+ 337 01de 8C59      		subi r24,lo8(-(100))
+ 338               	.LM50:
+ 339 01e0 982F      		mov r25,r24
+ 340               	.LVL16:
+ 341               	.L30:
+ 342 01e2 82B7      		in r24,82-32
+ 343 01e4 891B      		sub r24,r25
+ 344 01e6 87FD      		sbrc r24,7
+ 345 01e8 00C0      		rjmp .L30
+ 346               	.LBE7:
+ 347               	.LBE6:
+ 348               	.LM51:
+ 349 01ea 0894      		sec
+ 350 01ec E11C      		adc r14,__zero_reg__
+ 351 01ee F11C      		adc r15,__zero_reg__
+ 352 01f0 011D      		adc r16,__zero_reg__
+ 353 01f2 111D      		adc r17,__zero_reg__
+ 354 01f4 EA14      		cp r14,r10
+ 355 01f6 FB04      		cpc r15,r11
+ 356 01f8 0C05      		cpc r16,r12
+ 357 01fa 1D05      		cpc r17,r13
+ 358 01fc 00F0      		brlo .L31
+ 359               	.LM52:
+ 360 01fe C601      		movw r24,r12
+ 361 0200 B501      		movw r22,r10
+ 362 0202 2FE0      		ldi r18,lo8(15)
+ 363 0204 30E0      		ldi r19,hi8(15)
+ 364 0206 40E0      		ldi r20,hlo8(15)
+ 365 0208 50E0      		ldi r21,hhi8(15)
+ 366 020a 00D0      		rcall __udivmodsi4
+ 367 020c 2095      		com r18
+ 368 020e 3095      		com r19
+ 369 0210 4095      		com r20
+ 370 0212 5095      		com r21
+ 371 0214 A20E      		add r10,r18
+ 372 0216 B31E      		adc r11,r19
+ 373 0218 C41E      		adc r12,r20
+ 374 021a D51E      		adc r13,r21
+ 375               	.LM53:
+ 376 021c 89E1      		ldi r24,lo8(25)
+ 377 021e A816      		cp r10,r24
+ 378 0220 B104      		cpc r11,__zero_reg__
+ 379 0222 C104      		cpc r12,__zero_reg__
+ 380 0224 D104      		cpc r13,__zero_reg__
+ 381 0226 00F0      		brlo .L34
+ 382               	.LM54:
+ 383 0228 00D0      		rcall Manuell
+ 384               	.LVL17:
+ 385               	.LM55:
+ 386 022a 8091 0000 		lds r24,Phase
+ 387 022e 8F5F      		subi r24,lo8(-(1))
+ 388 0230 8093 0000 		sts Phase,r24
+ 389               	.LM56:
+ 390 0234 8091 0000 		lds r24,Phase
+ 391 0238 66E0      		ldi r22,lo8(6)
+ 392 023a 00D0      		rcall __udivmodqi4
+ 393 023c 9093 0000 		sts Phase,r25
+ 394               	.LM57:
+ 395 0240 00D0      		rcall AdConvert
+ 396               	.LM58:
+ 397 0242 9092 0000 		sts PWM,r9
+ 398 0246 1092 0000 		sts PWM+1,__zero_reg__
+ 399               	.LM59:
+ 400 024a 00D0      		rcall SetPWM
+ 401               	.LM60:
+ 402 024c 449B      		sbis 40-32,4
+ 403 024e 00C0      		rjmp .L39
+ 404               	.LM61:
+ 405 0250 82B3      		in r24,50-32
+ 406 0252 8058      		subi r24,lo8(-(-128))
+ 407 0254 82BB      		out 50-32,r24
+ 408 0256 00C0      		rjmp .L39
+ 409               	.LVL18:
+ 410               	.L34:
+ 411               	/* epilogue start */
+ 412               	.LM62:
+ 413 0258 1F91      		pop r17
+ 414 025a 0F91      		pop r16
+ 415 025c FF90      		pop r15
+ 416 025e EF90      		pop r14
+ 417               	.LVL19:
+ 418 0260 DF90      		pop r13
+ 419 0262 CF90      		pop r12
+ 420 0264 BF90      		pop r11
+ 421 0266 AF90      		pop r10
+ 422               	.LVL20:
+ 423 0268 9F90      		pop r9
+ 424               	.LVL21:
+ 425 026a 0895      		ret
+ 426               	.LFE6:
+ 428               	.global	main
+ 430               	main:
+ 431               	.LFB9:
+ 432               	.LM63:
+ 433 026c 3F92      		push r3
+ 434 026e 4F92      		push r4
+ 435 0270 5F92      		push r5
+ 436 0272 6F92      		push r6
+ 437 0274 7F92      		push r7
+ 438 0276 8F92      		push r8
+ 439 0278 9F92      		push r9
+ 440 027a AF92      		push r10
+ 441 027c BF92      		push r11
+ 442 027e CF92      		push r12
+ 443 0280 DF92      		push r13
+ 444 0282 EF92      		push r14
+ 445 0284 FF92      		push r15
+ 446 0286 0F93      		push r16
+ 447 0288 1F93      		push r17
+ 448 028a CF93      		push r28
+ 449 028c DF93      		push r29
+ 450               	/* prologue: function */
+ 451               	/* frame size = 0 */
+ 452               	.LM64:
+ 453 028e 88E0      		ldi r24,lo8(8)
+ 454 0290 84BB      		out 52-32,r24
+ 455               	.LM65:
+ 456 0292 85BB      		out 53-32,r24
+ 457               	.LM66:
+ 458 0294 8AEB      		ldi r24,lo8(-70)
+ 459 0296 81BB      		out 49-32,r24
+ 460               	.LM67:
+ 461 0298 80E8      		ldi r24,lo8(-128)
+ 462 029a 82BB      		out 50-32,r24
+ 463               	.LM68:
+ 464 029c 8EE0      		ldi r24,lo8(14)
+ 465 029e 87BB      		out 55-32,r24
+ 466               	.LM69:
+ 467 02a0 81E3      		ldi r24,lo8(49)
+ 468 02a2 88BB      		out 56-32,r24
+ 469               	.LM70:
+ 470 02a4 00D0      		rcall UART_Init
+ 471               	.LM71:
+ 472 02a6 00D0      		rcall Timer0_Init
+ 473               	.LM72:
+ 474               	/* #APP */
+ 475               	 ;  177 "main.c" 1
+ 476 02a8 7894      		sei
+ 477               	 ;  0 "" 2
+ 478               	/* #NOAPP */
+ 479 02aa C0E0      		ldi r28,lo8(0)
+ 480 02ac D0E0      		ldi r29,hi8(0)
+ 481               	.LVL22:
+ 482 02ae 00C0      		rjmp .L68
+ 483               	.L42:
+ 484               	.LM73:
+ 485 02b0 C430      		cpi r28,4
+ 486 02b2 D105      		cpc r29,__zero_reg__
+ 487 02b4 01F4      		brne .L68
+ 488 02b6 979A      		sbi 50-32,7
+ 489               	.L68:
+ 490               	.LM74:
+ 491 02b8 86E9      		ldi r24,lo8(150)
+ 492 02ba 90E0      		ldi r25,hi8(150)
+ 493 02bc 00D0      		rcall Delay_ms
+ 494               	.LM75:
+ 495 02be 9798      		cbi 50-32,7
+ 496               	.LM76:
+ 497 02c0 8AEF      		ldi r24,lo8(250)
+ 498 02c2 90E0      		ldi r25,hi8(250)
+ 499 02c4 00D0      		rcall Delay_ms
+ 500               	.LM77:
+ 501 02c6 2196      		adiw r28,1
+ 502 02c8 C530      		cpi r28,5
+ 503 02ca D105      		cpc r29,__zero_reg__
+ 504 02cc 04F0      		brlt .L42
+ 505               	.LM78:
+ 506 02ce 84EF      		ldi r24,lo8(500)
+ 507 02d0 91E0      		ldi r25,hi8(500)
+ 508 02d2 00D0      		rcall Delay_ms
+ 509               	.LM79:
+ 510 02d4 00D0      		rcall UART_Init
+ 511               	.LBB8:
+ 512               	.LBB9:
+ 513               	.LM80:
+ 514 02d6 82E0      		ldi r24,lo8(2)
+ 515 02d8 8FBD      		out 79-32,r24
+ 516 02da 81E4      		ldi r24,lo8(65)
+ 517 02dc 85BD      		out 69-32,r24
+ 518 02de 85B3      		in r24,53-32
+ 519 02e0 817F      		andi r24,lo8(-15)
+ 520 02e2 85BB      		out 53-32,r24
+ 521               	.LM81:
+ 522 02e4 89E0      		ldi r24,lo8(9)
+ 523 02e6 8EBD      		out 78-32,r24
+ 524               	.LBE9:
+ 525               	.LBE8:
+ 526               	.LM82:
+ 527 02e8 80E5      		ldi r24,lo8(80)
+ 528 02ea 00D0      		rcall InitIC2_Slave
+ 529               	.LM83:
+ 530 02ec 00D0      		rcall InitPPM
+ 531               	.LM84:
+ 532 02ee 85E6      		ldi r24,lo8(101)
+ 533 02f0 90E0      		ldi r25,hi8(101)
+ 534 02f2 00D0      		rcall SetDelay
+ 535               	.LM85:
+ 536 02f4 86E6      		ldi r24,lo8(102)
+ 537 02f6 90E0      		ldi r25,hi8(102)
+ 538 02f8 00D0      		rcall SetDelay
+ 539               	.LM86:
+ 540 02fa 87E6      		ldi r24,lo8(103)
+ 541 02fc 90E0      		ldi r25,hi8(103)
+ 542 02fe 00D0      		rcall SetDelay
+ 543 0300 EC01      		movw r28,r24
+ 544               	.LVL23:
+ 545               	.LM87:
+ 546 0302 8EEF      		ldi r24,lo8(254)
+ 547 0304 90E0      		ldi r25,hi8(254)
+ 548 0306 00D0      		rcall SetDelay
+ 549 0308 4C01      		movw r8,r24
+ 550               	.LVL24:
+ 551               	.LM88:
+ 552 030a 8DEE      		ldi r24,lo8(1005)
+ 553 030c 93E0      		ldi r25,hi8(1005)
+ 554 030e 00D0      		rcall SetDelay
+ 555 0310 7C01      		movw r14,r24
+ 556               	.LVL25:
+ 557               	.LM89:
+ 558 0312 8EEE      		ldi r24,lo8(1006)
+ 559 0314 93E0      		ldi r25,hi8(1006)
+ 560 0316 00D0      		rcall SetDelay
+ 561 0318 5C01      		movw r10,r24
+ 562               	.LVL26:
+ 563               	.L43:
+ 564               	.LM90:
+ 565 031a CE01      		movw r24,r28
+ 566 031c 00D0      		rcall CheckDelay
+ 567 031e 8823      		tst r24
+ 568 0320 01F0      		breq .L43
+ 569               	.LM91:
+ 570 0322 979A      		sbi 50-32,7
+ 571               	.LM92:
+ 572 0324 1092 0000 		sts (PWM)+1,__zero_reg__
+ 573 0328 1092 0000 		sts PWM,__zero_reg__
+ 574               	.LM93:
+ 575 032c 00D0      		rcall SetPWM
+ 576               	.LM94:
+ 577 032e 88E0      		ldi r24,lo8(8)
+ 578 0330 80BF      		out 80-32,r24
+ 579               	.LM95:
+ 580 0332 81E0      		ldi r24,lo8(1)
+ 581 0334 87B9      		out 39-32,r24
+ 582               	.LM96:
+ 583 0336 8AE0      		ldi r24,lo8(10)
+ 584 0338 90E0      		ldi r25,hi8(10)
+ 585 033a 00D0      		rcall SetDelay
+ 586 033c EC01      		movw r28,r24
+ 587               	.LVL27:
+ 588               	.LM97:
+ 589 033e 81E0      		ldi r24,lo8(1)
+ 590 0340 90E0      		ldi r25,hi8(1)
+ 591 0342 9093 0000 		sts (DebugOut+20)+1,r25
+ 592 0346 8093 0000 		sts DebugOut+20,r24
+ 593               	.LM98:
+ 594 034a 1092 0000 		sts (PPM_Signal)+1,__zero_reg__
+ 595 034e 1092 0000 		sts PPM_Signal,__zero_reg__
+ 596 0352 10E0      		ldi r17,lo8(0)
+ 597               	.LVL28:
+ 598               	.LM99:
+ 599 0354 DD24      		clr r13
+ 600 0356 D394      		inc r13
+ 601               	.LM100:
+ 602 0358 A2E0      		ldi r26,lo8(2)
+ 603 035a 3A2E      		mov r3,r26
+ 604 035c F1E4      		ldi r31,lo8(65)
+ 605 035e CF2E      		mov r12,r31
+ 606               	.LM101:
+ 607 0360 E1E0      		ldi r30,lo8(1)
+ 608 0362 4E2E      		mov r4,r30
+ 609 0364 512C      		mov r5,__zero_reg__
+ 610               	.LM102:
+ 611 0366 7AE0      		ldi r23,lo8(10)
+ 612 0368 672E      		mov r6,r23
+ 613 036a 712C      		mov r7,__zero_reg__
+ 614 036c 00C0      		rjmp .L44
+ 615               	.LVL29:
+ 616               	.L50:
+ 617               	.LM103:
+ 618 036e 102F      		mov r17,r16
+ 619               	.LVL30:
+ 620               	.L44:
+ 621               	.LM104:
+ 622 0370 00D0      		rcall SollwertErmittlung
+ 623 0372 8093 0000 		sts PWM,r24
+ 624 0376 1092 0000 		sts PWM+1,__zero_reg__
+ 625               	.LM105:
+ 626 037a 0091 0000 		lds r16,Phase
+ 627               	.LVL31:
+ 628 037e 0117      		cp r16,r17
+ 629 0380 01F0      		breq .L45
+ 630               	.LVL32:
+ 631               	.LM106:
+ 632 0382 1092 0000 		sts MotorGestoppt,__zero_reg__
+ 633               	.LM107:
+ 634 0386 1092 0000 		sts ZeitFuerBerechnungen,__zero_reg__
+ 635               	.LM108:
+ 636 038a 82E3      		ldi r24,lo8(50)
+ 637 038c 90E0      		ldi r25,hi8(50)
+ 638 038e 00D0      		rcall SetDelay
+ 639 0390 EC01      		movw r28,r24
+ 640               	.LM109:
+ 641 0392 0091 0000 		lds r16,Phase
+ 642               	.LVL33:
+ 643               	.L45:
+ 644               	.LM110:
+ 645 0396 8091 0000 		lds r24,PWM
+ 646 039a 9091 0000 		lds r25,(PWM)+1
+ 647 039e 892B      		or r24,r25
+ 648 03a0 01F4      		brne .L46
+ 649               	.LM111:
+ 650 03a2 1092 0000 		sts MotorAnwerfen,__zero_reg__
+ 651               	.LM112:
+ 652 03a6 1092 0000 		sts ZeitFuerBerechnungen,__zero_reg__
+ 653               	.LM113:
+ 654 03aa C701      		movw r24,r14
+ 655 03ac 00D0      		rcall CheckDelay
+ 656 03ae 8823      		tst r24
+ 657 03b0 01F0      		breq .L47
+ 658               	.LM114:
+ 659 03b2 1092 0000 		sts CompInterruptFreigabe,__zero_reg__
+ 660 03b6 4398      		cbi 40-32,3
+ 661               	.LM115:
+ 662 03b8 D092 0000 		sts MotorGestoppt,r13
+ 663               	.LM116:
+ 664 03bc 82B3      		in r24,50-32
+ 665 03be 877C      		andi r24,lo8(-57)
+ 666 03c0 82BB      		out 50-32,r24
+ 667 03c2 3FBC      		out 79-32,r3
+ 668 03c4 C5BC      		out 69-32,r12
+ 669 03c6 85B3      		in r24,53-32
+ 670 03c8 817F      		andi r24,lo8(-15)
+ 671 03ca 85BB      		out 53-32,r24
+ 672 03cc 00C0      		rjmp .L47
+ 673               	.L46:
+ 674               	.LM117:
+ 675 03ce 8091 0000 		lds r24,MotorGestoppt
+ 676 03d2 8823      		tst r24
+ 677 03d4 01F0      		breq .L48
+ 678 03d6 D092 0000 		sts MotorAnwerfen,r13
+ 679               	.L48:
+ 680               	.LM118:
+ 681 03da 8CED      		ldi r24,lo8(1500)
+ 682 03dc 95E0      		ldi r25,hi8(1500)
+ 683 03de 00D0      		rcall SetDelay
+ 684               	.L47:
+ 685               	.LM119:
+ 686 03e0 8091 0000 		lds r24,MotorGestoppt
+ 687 03e4 8823      		tst r24
+ 688 03e6 01F0      		breq .L49
+ 689 03e8 1092 0000 		sts (PWM)+1,__zero_reg__
+ 690 03ec 1092 0000 		sts PWM,__zero_reg__
+ 691               	.L49:
+ 692               	.LM120:
+ 693 03f0 00D0      		rcall SetPWM
+ 694               	.LM121:
+ 695 03f2 8091 0000 		lds r24,ZeitFuerBerechnungen
+ 696 03f6 8F5F      		subi r24,lo8(-(1))
+ 697 03f8 8093 0000 		sts ZeitFuerBerechnungen,r24
+ 698 03fc 8150      		subi r24,lo8(-(-1))
+ 699 03fe 01F0      		breq .+2
+ 700 0400 00C0      		rjmp .L50
+ 701               	.LM122:
+ 702 0402 8091 0000 		lds r24,MotorGestoppt
+ 703 0406 8111      		cpse r24,__zero_reg__
+ 704 0408 979A      		sbi 50-32,7
+ 705               	.L51:
+ 706               	.LM123:
+ 707 040a C401      		movw r24,r8
+ 708 040c 00D0      		rcall CheckDelay
+ 709 040e 8823      		tst r24
+ 710 0410 01F0      		breq .L52
+ 711               	.LM124:
+ 712 0412 82E3      		ldi r24,lo8(50)
+ 713 0414 90E0      		ldi r25,hi8(50)
+ 714 0416 00D0      		rcall SetDelay
+ 715 0418 4C01      		movw r8,r24
+ 716               	.LM125:
+ 717 041a 8091 0000 		lds r24,Mittelstrom
+ 718 041e 482F      		mov r20,r24
+ 719 0420 50E0      		ldi r21,lo8(0)
+ 720 0422 2091 0000 		lds r18,Strom
+ 721 0426 3091 0000 		lds r19,(Strom)+1
+ 722 042a 4217      		cp r20,r18
+ 723 042c 5307      		cpc r21,r19
+ 724 042e 00F4      		brsh .L53
+ 725 0430 8F5F      		subi r24,lo8(-(1))
+ 726 0432 00C0      		rjmp .L69
+ 727               	.L53:
+ 728               	.LM126:
+ 729 0434 2417      		cp r18,r20
+ 730 0436 3507      		cpc r19,r21
+ 731 0438 00F4      		brsh .L54
+ 732 043a 8150      		subi r24,lo8(-(-1))
+ 733               	.L69:
+ 734 043c 8093 0000 		sts Mittelstrom,r24
+ 735               	.L54:
+ 736               	.LM127:
+ 737 0440 8091 0000 		lds r24,Mittelstrom
+ 738 0444 9091 0000 		lds r25,MaxPWM
+ 739 0448 8234      		cpi r24,lo8(66)
+ 740 044a 00F0      		brlo .L55
+ 741               	.LM128:
+ 742 044c 9150      		subi r25,lo8(-(-1))
+ 743 044e 9093 0000 		sts MaxPWM,r25
+ 744               	.LM129:
+ 745 0452 AB9A      		sbi 53-32,3
+ 746 0454 00C0      		rjmp .L52
+ 747               	.L55:
+ 748               	.LM130:
+ 749 0456 9F3F      		cpi r25,lo8(-1)
+ 750 0458 01F0      		breq .L52
+ 751 045a 9F5F      		subi r25,lo8(-(1))
+ 752 045c 9093 0000 		sts MaxPWM,r25
+ 753               	.L52:
+ 754               	.LM131:
+ 755 0460 C701      		movw r24,r14
+ 756 0462 00D0      		rcall CheckDelay
+ 757 0464 8823      		tst r24
+ 758 0466 01F0      		breq .L56
+ 759               	.LM132:
+ 760 0468 8AE0      		ldi r24,lo8(10)
+ 761 046a 90E0      		ldi r25,hi8(10)
+ 762 046c 00D0      		rcall SetDelay
+ 763 046e 7C01      		movw r14,r24
+ 764               	.LM133:
+ 765 0470 2091 0000 		lds r18,CntKommutierungen
+ 766 0474 3091 0000 		lds r19,(CntKommutierungen)+1
+ 767 0478 C901      		movw r24,r18
+ 768 047a 880F      		lsl r24
+ 769 047c 991F      		rol r25
+ 770 047e 820F      		add r24,r18
+ 771 0480 931F      		adc r25,r19
+ 772 0482 880F      		lsl r24
+ 773 0484 991F      		rol r25
+ 774 0486 66E0      		ldi r22,lo8(6)
+ 775 0488 70E0      		ldi r23,hi8(6)
+ 776 048a 00D0      		rcall __udivmodhi4
+ 777 048c 7093 0000 		sts (SIO_Drehzahl)+1,r23
+ 778 0490 6093 0000 		sts SIO_Drehzahl,r22
+ 779               	.LM134:
+ 780 0494 1092 0000 		sts (CntKommutierungen)+1,__zero_reg__
+ 781 0498 1092 0000 		sts CntKommutierungen,__zero_reg__
+ 782               	.LM135:
+ 783 049c 8091 0000 		lds r24,PPM_Timeout
+ 784 04a0 8823      		tst r24
+ 785 04a2 01F4      		brne .L56
+ 786               	.LM136:
+ 787 04a4 D092 0000 		sts ZeitZumAdWandeln,r13
+ 788               	.L56:
+ 789               	.LM137:
+ 790 04a8 C501      		movw r24,r10
+ 791 04aa 00D0      		rcall CheckDelay
+ 792 04ac 8823      		tst r24
+ 793 04ae 01F0      		breq .L57
+ 794               	.LM138:
+ 795 04b0 8CED      		ldi r24,lo8(1500)
+ 796 04b2 95E0      		ldi r25,hi8(1500)
+ 797 04b4 00D0      		rcall SetDelay
+ 798 04b6 5C01      		movw r10,r24
+ 799               	.L57:
+ 800               	.LM139:
+ 801 04b8 CE01      		movw r24,r28
+ 802 04ba 00D0      		rcall CheckDelay
+ 803 04bc 8823      		tst r24
+ 804 04be 01F0      		breq .L58
+ 805 04c0 8091 0000 		lds r24,SIO_Drehzahl
+ 806 04c4 9091 0000 		lds r25,(SIO_Drehzahl)+1
+ 807 04c8 892B      		or r24,r25
+ 808 04ca 01F0      		breq .L59
+ 809               	.L58:
+ 810 04cc 8091 0000 		lds r24,MotorAnwerfen
+ 811 04d0 8823      		tst r24
+ 812 04d2 01F4      		brne .+2
+ 813 04d4 00C0      		rjmp .L50
+ 814               	.L59:
+ 815               	.LM140:
+ 816 04d6 D092 0000 		sts MotorGestoppt,r13
+ 817               	.LM141:
+ 818 04da 1092 0000 		sts CompInterruptFreigabe,__zero_reg__
+ 819 04de 4398      		cbi 40-32,3
+ 820               	.LM142:
+ 821 04e0 84E6      		ldi r24,lo8(100)
+ 822 04e2 90E0      		ldi r25,hi8(100)
+ 823 04e4 00D0      		rcall SetDelay
+ 824 04e6 EC01      		movw r28,r24
+ 825               	.LM143:
+ 826 04e8 8091 0000 		lds r24,MotorAnwerfen
+ 827 04ec 8823      		tst r24
+ 828 04ee 01F4      		brne .+2
+ 829 04f0 00C0      		rjmp .L50
+ 830               	.LM144:
+ 831 04f2 AB98      		cbi 53-32,3
+ 832               	.LM145:
+ 833 04f4 1092 0000 		sts MotorAnwerfen,__zero_reg__
+ 834               	.LM146:
+ 835 04f8 8AE0      		ldi r24,lo8(10)
+ 836 04fa 00D0      		rcall Anwerfen
+ 837               	.LM147:
+ 838 04fc 979A      		sbi 50-32,7
+ 839               	.LM148:
+ 840 04fe 1092 0000 		sts MotorGestoppt,__zero_reg__
+ 841               	.LM149:
+ 842 0502 8091 0000 		lds r24,Phase
+ 843 0506 8150      		subi r24,lo8(-(-1))
+ 844 0508 8093 0000 		sts Phase,r24
+ 845               	.LM150:
+ 846 050c 5092 0000 		sts (PWM)+1,r5
+ 847 0510 4092 0000 		sts PWM,r4
+ 848               	.LM151:
+ 849 0514 00D0      		rcall SetPWM
+ 850               	.LM152:
+ 851 0516 88B1      		in r24,40-32
+ 852 0518 8C7F      		andi r24,lo8(-4)
+ 853 051a 88B9      		out 40-32,r24
+ 854               	.LM153:
+ 855 051c D092 0000 		sts CompInterruptFreigabe,r13
+ 856 0520 88B1      		in r24,40-32
+ 857 0522 8A60      		ori r24,lo8(10)
+ 858 0524 88B9      		out 40-32,r24
+ 859               	.LM154:
+ 860 0526 84E6      		ldi r24,lo8(100)
+ 861 0528 90E0      		ldi r25,hi8(100)
+ 862 052a 00D0      		rcall SetDelay
+ 863 052c EC01      		movw r28,r24
+ 864               	.LVL34:
+ 865               	.L60:
+ 866               	.LM155:
+ 867 052e CE01      		movw r24,r28
+ 868 0530 00D0      		rcall CheckDelay
+ 869 0532 8823      		tst r24
+ 870 0534 01F0      		breq .L60
+ 871               	.LM156:
+ 872 0536 7092 0000 		sts (PWM)+1,r7
+ 873 053a 6092 0000 		sts PWM,r6
+ 874               	.LM157:
+ 875 053e 00D0      		rcall SetPWM
+ 876               	.LM158:
+ 877 0540 88EC      		ldi r24,lo8(200)
+ 878 0542 90E0      		ldi r25,hi8(200)
+ 879 0544 00D0      		rcall SetDelay
+ 880 0546 EC01      		movw r28,r24
+ 881               	.LVL35:
+ 882               	.L61:
+ 883               	.LM159:
+ 884 0548 CE01      		movw r24,r28
+ 885 054a 00D0      		rcall CheckDelay
+ 886 054c 8823      		tst r24
+ 887 054e 01F0      		breq .L61
+ 888               	.LM160:
+ 889 0550 88EE      		ldi r24,lo8(1000)
+ 890 0552 93E0      		ldi r25,hi8(1000)
+ 891 0554 00D0      		rcall SetDelay
+ 892 0556 EC01      		movw r28,r24
+ 893               	.LVL36:
+ 894 0558 07E0      		ldi r16,lo8(7)
+ 895 055a 00C0      		rjmp .L50
+ 896               	.LFE9:
+ 898               	.global	PWM
+ 899               	.global	PWM
+ 900               		.section .bss
+ 903               	PWM:
+ 904 0000 0000      		.skip 2,0
+ 905               	.global	Strom
+ 906               	.global	Strom
+ 909               	Strom:
+ 910 0002 0000      		.skip 2,0
+ 911               	.global	Strom_max
+ 912               	.global	Strom_max
+ 915               	Strom_max:
+ 916 0004 00        		.skip 1,0
+ 917               	.global	Mittelstrom
+ 918               	.global	Mittelstrom
+ 921               	Mittelstrom:
+ 922 0005 00        		.skip 1,0
+ 923               	.global	Drehzahl
+ 924               	.global	Drehzahl
+ 927               	Drehzahl:
+ 928 0006 0000      		.skip 2,0
+ 929               	.global	KommutierDelay
+ 930               		.data
+ 933               	KommutierDelay:
+ 934 0000 0A00      		.word	10
+ 935               	.global	I2C_Timeout
+ 936               	.global	I2C_Timeout
+ 937               		.section .bss
+ 940               	I2C_Timeout:
+ 941 0008 0000      		.skip 2,0
+ 942               	.global	SIO_Timeout
+ 943               	.global	SIO_Timeout
+ 946               	SIO_Timeout:
+ 947 000a 00        		.skip 1,0
+ 948               	.global	SollDrehzahl
+ 949               	.global	SollDrehzahl
+ 952               	SollDrehzahl:
+ 953 000b 0000      		.skip 2,0
+ 954               	.global	IstDrehzahl
+ 955               	.global	IstDrehzahl
+ 958               	IstDrehzahl:
+ 959 000d 0000      		.skip 2,0
+ 960               	.global	ZeitFuerBerechnungen
+ 961               		.data
+ 964               	ZeitFuerBerechnungen:
+ 965 0002 01        		.byte	1
+ 966               	.global	MotorAnwerfen
+ 967               	.global	MotorAnwerfen
+ 968               		.section .bss
+ 971               	MotorAnwerfen:
+ 972 000f 00        		.skip 1,0
+ 973               	.global	MotorGestoppt
+ 974               		.data
+ 977               	MotorGestoppt:
+ 978 0003 01        		.byte	1
+ 979               	.global	MaxPWM
+ 982               	MaxPWM:
+ 983 0004 FF        		.byte	-1
+ 984               	.global	CntKommutierungen
+ 985               	.global	CntKommutierungen
+ 986               		.section .bss
+ 989               	CntKommutierungen:
+ 990 0010 0000      		.skip 2,0
+ 991               	.global	SIO_Drehzahl
+ 992               	.global	SIO_Drehzahl
+ 995               	SIO_Drehzahl:
+ 996 0012 0000      		.skip 2,0
+ 997               	.global	ZeitZumAdWandeln
+ 998               		.data
+ 1001               	ZeitZumAdWandeln:
+ 1002 0005 01        		.byte	1
+ 1003               		.lcomm sollwert.1908,2
+ 1004               		.comm DrehZahlTabelle,512,1
+ 1077               	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:00000000 main.c
+C:\Users\ADMINI~1\AppData\Local\Temp/ccebUuYP.s:2      *ABS*:0000003f __SREG__
+C:\Users\ADMINI~1\AppData\Local\Temp/ccebUuYP.s:3      *ABS*:0000003e __SP_H__
+C:\Users\ADMINI~1\AppData\Local\Temp/ccebUuYP.s:4      *ABS*:0000003d __SP_L__
+C:\Users\ADMINI~1\AppData\Local\Temp/ccebUuYP.s:5      *ABS*:00000034 __CCP__
+C:\Users\ADMINI~1\AppData\Local\Temp/ccebUuYP.s:6      *ABS*:00000000 __tmp_reg__
+C:\Users\ADMINI~1\AppData\Local\Temp/ccebUuYP.s:7      *ABS*:00000001 __zero_reg__
+C:\Users\ADMINI~1\AppData\Local\Temp/ccebUuYP.s:18     .text:00000000 SetPWM
+C:\Users\ADMINI~1\AppData\Local\Temp/ccebUuYP.s:903    .bss:00000000 PWM
+C:\Users\ADMINI~1\AppData\Local\Temp/ccebUuYP.s:982    .data:00000004 MaxPWM
+C:\Users\ADMINI~1\AppData\Local\Temp/ccebUuYP.s:909    .bss:00000002 Strom
+C:\Users\ADMINI~1\AppData\Local\Temp/ccebUuYP.s:71     .text:0000004a PWM_Init
+C:\Users\ADMINI~1\AppData\Local\Temp/ccebUuYP.s:94     .text:0000005e Wait
+C:\Users\ADMINI~1\AppData\Local\Temp/ccebUuYP.s:118    .text:0000006c SollwertErmittlung
+C:\Users\ADMINI~1\AppData\Local\Temp/ccebUuYP.s:940    .bss:00000008 I2C_Timeout
+C:\Users\ADMINI~1\AppData\Local\Temp/ccebUuYP.s:946    .bss:0000000a SIO_Timeout
+                             .bss:00000014 sollwert.1908
+C:\Users\ADMINI~1\AppData\Local\Temp/ccebUuYP.s:240    .text:00000146 DebugAusgaben
+C:\Users\ADMINI~1\AppData\Local\Temp/ccebUuYP.s:921    .bss:00000005 Mittelstrom
+C:\Users\ADMINI~1\AppData\Local\Temp/ccebUuYP.s:995    .bss:00000012 SIO_Drehzahl
+C:\Users\ADMINI~1\AppData\Local\Temp/ccebUuYP.s:271    .text:00000184 Anwerfen
+C:\Users\ADMINI~1\AppData\Local\Temp/ccebUuYP.s:430    .text:0000026c main
+C:\Users\ADMINI~1\AppData\Local\Temp/ccebUuYP.s:977    .data:00000003 MotorGestoppt
+C:\Users\ADMINI~1\AppData\Local\Temp/ccebUuYP.s:964    .data:00000002 ZeitFuerBerechnungen
+C:\Users\ADMINI~1\AppData\Local\Temp/ccebUuYP.s:971    .bss:0000000f MotorAnwerfen
+C:\Users\ADMINI~1\AppData\Local\Temp/ccebUuYP.s:989    .bss:00000010 CntKommutierungen
+C:\Users\ADMINI~1\AppData\Local\Temp/ccebUuYP.s:1001   .data:00000005 ZeitZumAdWandeln
+C:\Users\ADMINI~1\AppData\Local\Temp/ccebUuYP.s:915    .bss:00000004 Strom_max
+C:\Users\ADMINI~1\AppData\Local\Temp/ccebUuYP.s:927    .bss:00000006 Drehzahl
+C:\Users\ADMINI~1\AppData\Local\Temp/ccebUuYP.s:933    .data:00000000 KommutierDelay
+C:\Users\ADMINI~1\AppData\Local\Temp/ccebUuYP.s:952    .bss:0000000b SollDrehzahl
+C:\Users\ADMINI~1\AppData\Local\Temp/ccebUuYP.s:958    .bss:0000000d IstDrehzahl
+                            *COM*:00000200 DrehZahlTabelle
+
+UNDEFINED SYMBOLS
+SIO_Sollwert
+__udivmodhi4
+PPM_Timeout
+PPM_Signal
+I2C_RXBuffer
+DebugOut
+CompInterruptFreigabe
+Manuell
+Delay_ms
+UebertragungAbgeschlossen
+SendUart
+DatenUebertragung
+__udivmodsi4
+Phase
+__udivmodqi4
+AdConvert
+UART_Init
+Timer0_Init
+InitIC2_Slave
+InitPPM
+SetDelay
+CheckDelay
+__do_copy_data
+__do_clear_bss

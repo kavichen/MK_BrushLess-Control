@@ -1,0 +1,544 @@
+   1               		.file	"BLMC.c"
+   2               	__SREG__ = 0x3f
+   3               	__SP_H__ = 0x3e
+   4               	__SP_L__ = 0x3d
+   5               	__CCP__  = 0x34
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+  15               	.Ltext0:
+  16               	.global	__vector_4
+  18               	__vector_4:
+  19               	.LFB3:
+  20               	.LM1:
+  21 0000 1F92      		push __zero_reg__
+  22 0002 0F92      		push r0
+  23 0004 0FB6      		in r0,__SREG__
+  24 0006 0F92      		push r0
+  25 0008 1124      		clr __zero_reg__
+  26               	/* prologue: Signal */
+  27               	/* frame size = 0 */
+  28               	/* epilogue start */
+  29               	.LM2:
+  30 000a 0F90      		pop r0
+  31 000c 0FBE      		out __SREG__,r0
+  32 000e 0F90      		pop r0
+  33 0010 1F90      		pop __zero_reg__
+  34 0012 1895      		reti
+  35               	.LFE3:
+  37               	.global	Manuell
+  39               	Manuell:
+  40               	.LFB5:
+  41               	.LM3:
+  42               	/* prologue: function */
+  43               	/* frame size = 0 */
+  44               	.LM4:
+  45 0014 9091 0000 		lds r25,Phase
+  46 0018 9230      		cpi r25,lo8(2)
+  47 001a 01F0      		breq .L7
+  48 001c 9330      		cpi r25,lo8(3)
+  49 001e 00F4      		brsh .L11
+  50 0020 9923      		tst r25
+  51 0022 01F0      		breq .L5
+  52 0024 9130      		cpi r25,lo8(1)
+  53 0026 01F0      		breq .+2
+  54 0028 00C0      		rjmp .L12
+  55 002a 00C0      		rjmp .L16
+  56               	.L11:
+  57 002c 9430      		cpi r25,lo8(4)
+  58 002e 01F0      		breq .L9
+  59 0030 9430      		cpi r25,lo8(4)
+  60 0032 00F0      		brlo .L8
+  61 0034 9530      		cpi r25,lo8(5)
+  62 0036 01F0      		breq .+2
+  63 0038 00C0      		rjmp .L12
+  64 003a 00C0      		rjmp .L17
+  65               	.L5:
+  66               	.LM5:
+  67 003c 82EA      		ldi r24,lo8(-94)
+  68 003e 8FBD      		out 79-32,r24
+  69 0040 81E6      		ldi r24,lo8(97)
+  70 0042 85BD      		out 69-32,r24
+  71 0044 88E0      		ldi r24,lo8(8)
+  72 0046 87BB      		out 55-32,r24
+  73               	.LM6:
+  74 0048 82B3      		in r24,50-32
+  75 004a 877D      		andi r24,lo8(-41)
+  76 004c 82BB      		out 50-32,r24
+  77 004e 949A      		sbi 50-32,4
+  78               	.LM7:
+  79 0050 82E0      		ldi r24,lo8(2)
+  80 0052 00C0      		rjmp .L15
+  81               	.L16:
+  82               	.LM8:
+  83 0054 82EA      		ldi r24,lo8(-94)
+  84 0056 8FBD      		out 79-32,r24
+  85 0058 81E6      		ldi r24,lo8(97)
+  86 005a 85BD      		out 69-32,r24
+  87 005c 88E0      		ldi r24,lo8(8)
+  88 005e 87BB      		out 55-32,r24
+  89               	.LM9:
+  90 0060 82B3      		in r24,50-32
+  91 0062 877E      		andi r24,lo8(-25)
+  92 0064 82BB      		out 50-32,r24
+  93 0066 959A      		sbi 50-32,5
+  94               	.LM10:
+  95 0068 97B9      		out 39-32,r25
+  96 006a 00C0      		rjmp .L14
+  97               	.L7:
+  98               	.LM11:
+  99 006c 82EA      		ldi r24,lo8(-94)
+ 100 006e 8FBD      		out 79-32,r24
+ 101 0070 81E4      		ldi r24,lo8(65)
+ 102 0072 85BD      		out 69-32,r24
+ 103 0074 8CE0      		ldi r24,lo8(12)
+ 104 0076 87BB      		out 55-32,r24
+ 105               	.LM12:
+ 106 0078 82B3      		in r24,50-32
+ 107 007a 877E      		andi r24,lo8(-25)
+ 108 007c 82BB      		out 50-32,r24
+ 109 007e 959A      		sbi 50-32,5
+ 110               	.LM13:
+ 111 0080 17B8      		out 39-32,__zero_reg__
+ 112 0082 00C0      		rjmp .L13
+ 113               	.L8:
+ 114               	.LM14:
+ 115 0084 82EA      		ldi r24,lo8(-94)
+ 116 0086 8FBD      		out 79-32,r24
+ 117 0088 81E4      		ldi r24,lo8(65)
+ 118 008a 85BD      		out 69-32,r24
+ 119 008c 8CE0      		ldi r24,lo8(12)
+ 120 008e 87BB      		out 55-32,r24
+ 121               	.LM15:
+ 122 0090 82B3      		in r24,50-32
+ 123 0092 8F7C      		andi r24,lo8(-49)
+ 124 0094 82BB      		out 50-32,r24
+ 125 0096 939A      		sbi 50-32,3
+ 126               	.LM16:
+ 127 0098 82E0      		ldi r24,lo8(2)
+ 128 009a 87B9      		out 39-32,r24
+ 129               	.L14:
+ 130               	.LM17:
+ 131 009c 4098      		cbi 40-32,0
+ 132 009e 0895      		ret
+ 133               	.L9:
+ 134               	.LM18:
+ 135 00a0 82EA      		ldi r24,lo8(-94)
+ 136 00a2 8FBD      		out 79-32,r24
+ 137 00a4 81E4      		ldi r24,lo8(65)
+ 138 00a6 85BD      		out 69-32,r24
+ 139 00a8 8AE0      		ldi r24,lo8(10)
+ 140 00aa 87BB      		out 55-32,r24
+ 141               	.LM19:
+ 142 00ac 82B3      		in r24,50-32
+ 143 00ae 8F7C      		andi r24,lo8(-49)
+ 144 00b0 82BB      		out 50-32,r24
+ 145 00b2 939A      		sbi 50-32,3
+ 146               	.LM20:
+ 147 00b4 81E0      		ldi r24,lo8(1)
+ 148               	.L15:
+ 149 00b6 87B9      		out 39-32,r24
+ 150               	.L13:
+ 151               	.LM21:
+ 152 00b8 88B1      		in r24,40-32
+ 153 00ba 8360      		ori r24,lo8(3)
+ 154 00bc 88B9      		out 40-32,r24
+ 155 00be 0895      		ret
+ 156               	.L17:
+ 157               	.LM22:
+ 158 00c0 82EA      		ldi r24,lo8(-94)
+ 159 00c2 8FBD      		out 79-32,r24
+ 160 00c4 81E4      		ldi r24,lo8(65)
+ 161 00c6 85BD      		out 69-32,r24
+ 162 00c8 8AE0      		ldi r24,lo8(10)
+ 163 00ca 87BB      		out 55-32,r24
+ 164               	.LM23:
+ 165 00cc 82B3      		in r24,50-32
+ 166 00ce 877D      		andi r24,lo8(-41)
+ 167 00d0 82BB      		out 50-32,r24
+ 168 00d2 949A      		sbi 50-32,4
+ 169               	.LM24:
+ 170 00d4 17B8      		out 39-32,__zero_reg__
+ 171               	.LM25:
+ 172 00d6 4098      		cbi 40-32,0
+ 173               	.L12:
+ 174 00d8 0895      		ret
+ 175               	.LFE5:
+ 177               	.global	__vector_16
+ 179               	__vector_16:
+ 180               	.LFB4:
+ 181               	.LM26:
+ 182 00da 1F92      		push __zero_reg__
+ 183 00dc 0F92      		push r0
+ 184 00de 0FB6      		in r0,__SREG__
+ 185 00e0 0F92      		push r0
+ 186 00e2 1124      		clr __zero_reg__
+ 187 00e4 9F92      		push r9
+ 188 00e6 AF92      		push r10
+ 189 00e8 BF92      		push r11
+ 190 00ea CF92      		push r12
+ 191 00ec DF92      		push r13
+ 192 00ee EF92      		push r14
+ 193 00f0 FF92      		push r15
+ 194 00f2 0F93      		push r16
+ 195 00f4 1F93      		push r17
+ 196 00f6 2F93      		push r18
+ 197 00f8 3F93      		push r19
+ 198 00fa 4F93      		push r20
+ 199 00fc 5F93      		push r21
+ 200 00fe 6F93      		push r22
+ 201 0100 7F93      		push r23
+ 202 0102 8F93      		push r24
+ 203 0104 9F93      		push r25
+ 204 0106 AF93      		push r26
+ 205 0108 BF93      		push r27
+ 206 010a EF93      		push r30
+ 207 010c FF93      		push r31
+ 208               	/* prologue: Signal */
+ 209               	/* frame size = 0 */
+ 210               	.LM27:
+ 211 010e 02EA      		ldi r16,lo8(-94)
+ 212 0110 E1E4      		ldi r30,lo8(65)
+ 213 0112 EE2E      		mov r14,r30
+ 214 0114 7AE0      		ldi r23,lo8(10)
+ 215 0116 A72E      		mov r10,r23
+ 216               	.LM28:
+ 217 0118 FF24      		clr r15
+ 218 011a F394      		inc r15
+ 219               	.LM29:
+ 220 011c 6CE0      		ldi r22,lo8(12)
+ 221 011e B62E      		mov r11,r22
+ 222               	.LM30:
+ 223 0120 51E6      		ldi r21,lo8(97)
+ 224 0122 C52E      		mov r12,r21
+ 225 0124 48E0      		ldi r20,lo8(8)
+ 226 0126 D42E      		mov r13,r20
+ 227               	.LM31:
+ 228 0128 32E0      		ldi r19,lo8(2)
+ 229 012a 932E      		mov r9,r19
+ 230               	.LVL0:
+ 231               	.L45:
+ 232               	.LM32:
+ 233 012c 88B1      		in r24,40-32
+ 234 012e 90E0      		ldi r25,lo8(0)
+ 235 0130 25E0      		ldi r18,5
+ 236 0132 9695      	1:	lsr r25
+ 237 0134 8795      		ror r24
+ 238 0136 2A95      		dec r18
+ 239 0138 01F4      		brne 1b
+ 240 013a 182F      		mov r17,r24
+ 241 013c 1170      		andi r17,lo8(1)
+ 242               	.LM33:
+ 243 013e 9091 0000 		lds r25,Phase
+ 244 0142 9230      		cpi r25,lo8(2)
+ 245 0144 01F4      		brne .+2
+ 246 0146 00C0      		rjmp .L22
+ 247 0148 9330      		cpi r25,lo8(3)
+ 248 014a 00F4      		brsh .L26
+ 249 014c 9923      		tst r25
+ 250 014e 01F0      		breq .L20
+ 251 0150 9130      		cpi r25,lo8(1)
+ 252 0152 01F0      		breq .+2
+ 253 0154 00C0      		rjmp .L19
+ 254 0156 00C0      		rjmp .L50
+ 255               	.L26:
+ 256 0158 9430      		cpi r25,lo8(4)
+ 257 015a 01F4      		brne .+2
+ 258 015c 00C0      		rjmp .L24
+ 259 015e 9430      		cpi r25,lo8(4)
+ 260 0160 00F4      		brsh .+2
+ 261 0162 00C0      		rjmp .L23
+ 262 0164 9530      		cpi r25,lo8(5)
+ 263 0166 01F0      		breq .+2
+ 264 0168 00C0      		rjmp .L19
+ 265 016a 00C0      		rjmp .L51
+ 266               	.L20:
+ 267               	.LM34:
+ 268 016c 0FBD      		out 79-32,r16
+ 269 016e C5BC      		out 69-32,r12
+ 270 0170 D7BA      		out 55-32,r13
+ 271               	.LM35:
+ 272 0172 1123      		tst r17
+ 273 0174 01F0      		breq .L27
+ 274               	.LM36:
+ 275 0176 82B3      		in r24,50-32
+ 276 0178 877E      		andi r24,lo8(-25)
+ 277 017a 82BB      		out 50-32,r24
+ 278 017c 959A      		sbi 50-32,5
+ 279               	.LM37:
+ 280 017e F4BC      		out 68-32,r15
+ 281               	.LM38:
+ 282 0180 8091 0000 		lds r24,ZeitZumAdWandeln
+ 283 0184 8111      		cpse r24,__zero_reg__
+ 284 0186 00D0      		rcall AdConvert
+ 285               	.L28:
+ 286               	.LM39:
+ 287 0188 4098      		cbi 40-32,0
+ 288               	.LM40:
+ 289 018a F7B8      		out 39-32,r15
+ 290 018c 00C0      		rjmp .L46
+ 291               	.L27:
+ 292               	.LM41:
+ 293 018e 82B3      		in r24,50-32
+ 294 0190 877D      		andi r24,lo8(-41)
+ 295 0192 82BB      		out 50-32,r24
+ 296 0194 949A      		sbi 50-32,4
+ 297 0196 00C0      		rjmp .L19
+ 298               	.L50:
+ 299               	.LM42:
+ 300 0198 82B3      		in r24,50-32
+ 301 019a 877E      		andi r24,lo8(-25)
+ 302 019c 82BB      		out 50-32,r24
+ 303 019e 959A      		sbi 50-32,5
+ 304               	.LM43:
+ 305 01a0 1123      		tst r17
+ 306 01a2 01F4      		brne .L29
+ 307               	.LM44:
+ 308 01a4 0FBD      		out 79-32,r16
+ 309 01a6 E5BC      		out 69-32,r14
+ 310 01a8 B7BA      		out 55-32,r11
+ 311               	.LM45:
+ 312 01aa 94BD      		out 68-32,r25
+ 313               	.LM46:
+ 314 01ac 8091 0000 		lds r24,ZeitZumAdWandeln
+ 315 01b0 8111      		cpse r24,__zero_reg__
+ 316 01b2 00D0      		rcall AdConvert
+ 317               	.L30:
+ 318               	.LM47:
+ 319 01b4 17B8      		out 39-32,__zero_reg__
+ 320               	.L49:
+ 321               	.LM48:
+ 322 01b6 88B1      		in r24,40-32
+ 323 01b8 8360      		ori r24,lo8(3)
+ 324 01ba 88B9      		out 40-32,r24
+ 325               	.L46:
+ 326               	.LM49:
+ 327 01bc 8091 0000 		lds r24,Phase
+ 328 01c0 8F5F      		subi r24,lo8(-(1))
+ 329 01c2 8093 0000 		sts Phase,r24
+ 330               	.L47:
+ 331               	.LM50:
+ 332 01c6 8091 0000 		lds r24,CntKommutierungen
+ 333 01ca 9091 0000 		lds r25,(CntKommutierungen)+1
+ 334 01ce 0196      		adiw r24,1
+ 335 01d0 9093 0000 		sts (CntKommutierungen)+1,r25
+ 336 01d4 8093 0000 		sts CntKommutierungen,r24
+ 337 01d8 00C0      		rjmp .L19
+ 338               	.L29:
+ 339               	.LM51:
+ 340 01da 0FBD      		out 79-32,r16
+ 341 01dc C5BC      		out 69-32,r12
+ 342 01de D7BA      		out 55-32,r13
+ 343 01e0 00C0      		rjmp .L19
+ 344               	.L22:
+ 345               	.LM52:
+ 346 01e2 0FBD      		out 79-32,r16
+ 347 01e4 E5BC      		out 69-32,r14
+ 348 01e6 B7BA      		out 55-32,r11
+ 349               	.LM53:
+ 350 01e8 1123      		tst r17
+ 351 01ea 01F0      		breq .L31
+ 352               	.LM54:
+ 353 01ec 82B3      		in r24,50-32
+ 354 01ee 8F7C      		andi r24,lo8(-49)
+ 355 01f0 82BB      		out 50-32,r24
+ 356 01f2 939A      		sbi 50-32,3
+ 357               	.LM55:
+ 358 01f4 F4BC      		out 68-32,r15
+ 359               	.LM56:
+ 360 01f6 8091 0000 		lds r24,ZeitZumAdWandeln
+ 361 01fa 8111      		cpse r24,__zero_reg__
+ 362 01fc 00D0      		rcall AdConvert
+ 363               	.L32:
+ 364               	.LM57:
+ 365 01fe 97B8      		out 39-32,r9
+ 366 0200 00C0      		rjmp .L48
+ 367               	.L31:
+ 368               	.LM58:
+ 369 0202 82B3      		in r24,50-32
+ 370 0204 877E      		andi r24,lo8(-25)
+ 371 0206 82BB      		out 50-32,r24
+ 372 0208 959A      		sbi 50-32,5
+ 373 020a 00C0      		rjmp .L19
+ 374               	.L23:
+ 375               	.LM59:
+ 376 020c 82B3      		in r24,50-32
+ 377 020e 8F7C      		andi r24,lo8(-49)
+ 378 0210 82BB      		out 50-32,r24
+ 379 0212 939A      		sbi 50-32,3
+ 380               	.LM60:
+ 381 0214 1123      		tst r17
+ 382 0216 01F4      		brne .L33
+ 383               	.LM61:
+ 384 0218 0FBD      		out 79-32,r16
+ 385 021a E5BC      		out 69-32,r14
+ 386 021c A7BA      		out 55-32,r10
+ 387               	.LM62:
+ 388 021e F4BC      		out 68-32,r15
+ 389               	.LM63:
+ 390 0220 8091 0000 		lds r24,ZeitZumAdWandeln
+ 391 0224 8111      		cpse r24,__zero_reg__
+ 392 0226 00D0      		rcall AdConvert
+ 393               	.L34:
+ 394               	.LM64:
+ 395 0228 F7B8      		out 39-32,r15
+ 396 022a 00C0      		rjmp .L49
+ 397               	.L33:
+ 398               	.LM65:
+ 399 022c 0FBD      		out 79-32,r16
+ 400 022e E5BC      		out 69-32,r14
+ 401 0230 B7BA      		out 55-32,r11
+ 402 0232 00C0      		rjmp .L19
+ 403               	.L24:
+ 404               	.LM66:
+ 405 0234 0FBD      		out 79-32,r16
+ 406 0236 E5BC      		out 69-32,r14
+ 407 0238 A7BA      		out 55-32,r10
+ 408               	.LM67:
+ 409 023a 1123      		tst r17
+ 410 023c 01F0      		breq .L35
+ 411               	.LM68:
+ 412 023e 82B3      		in r24,50-32
+ 413 0240 877D      		andi r24,lo8(-41)
+ 414 0242 82BB      		out 50-32,r24
+ 415 0244 949A      		sbi 50-32,4
+ 416               	.LM69:
+ 417 0246 F4BC      		out 68-32,r15
+ 418               	.LM70:
+ 419 0248 8091 0000 		lds r24,ZeitZumAdWandeln
+ 420 024c 8111      		cpse r24,__zero_reg__
+ 421 024e 00D0      		rcall AdConvert
+ 422               	.L36:
+ 423               	.LM71:
+ 424 0250 17B8      		out 39-32,__zero_reg__
+ 425               	.L48:
+ 426               	.LM72:
+ 427 0252 4098      		cbi 40-32,0
+ 428 0254 00C0      		rjmp .L46
+ 429               	.L35:
+ 430               	.LM73:
+ 431 0256 82B3      		in r24,50-32
+ 432 0258 8F7C      		andi r24,lo8(-49)
+ 433 025a 82BB      		out 50-32,r24
+ 434 025c 939A      		sbi 50-32,3
+ 435 025e 00C0      		rjmp .L19
+ 436               	.L51:
+ 437               	.LM74:
+ 438 0260 82B3      		in r24,50-32
+ 439 0262 877D      		andi r24,lo8(-41)
+ 440 0264 82BB      		out 50-32,r24
+ 441 0266 949A      		sbi 50-32,4
+ 442               	.LM75:
+ 443 0268 1123      		tst r17
+ 444 026a 01F4      		brne .L37
+ 445               	.LM76:
+ 446 026c 0FBD      		out 79-32,r16
+ 447 026e C5BC      		out 69-32,r12
+ 448 0270 D7BA      		out 55-32,r13
+ 449               	.LM77:
+ 450 0272 F4BC      		out 68-32,r15
+ 451               	.LM78:
+ 452 0274 8091 0000 		lds r24,ZeitZumAdWandeln
+ 453 0278 8111      		cpse r24,__zero_reg__
+ 454 027a 00D0      		rcall AdConvert
+ 455               	.L38:
+ 456               	.LM79:
+ 457 027c 97B8      		out 39-32,r9
+ 458               	.LM80:
+ 459 027e 88B1      		in r24,40-32
+ 460 0280 8360      		ori r24,lo8(3)
+ 461 0282 88B9      		out 40-32,r24
+ 462               	.LM81:
+ 463 0284 1092 0000 		sts Phase,__zero_reg__
+ 464 0288 00C0      		rjmp .L47
+ 465               	.L37:
+ 466               	.LM82:
+ 467 028a 0FBD      		out 79-32,r16
+ 468 028c E5BC      		out 69-32,r14
+ 469 028e A7BA      		out 55-32,r10
+ 470               	.L19:
+ 471               	.LM83:
+ 472 0290 4599      		sbic 40-32,5
+ 473 0292 00C0      		rjmp .L39
+ 474 0294 1123      		tst r17
+ 475 0296 01F0      		breq .+2
+ 476 0298 00C0      		rjmp .L45
+ 477               	.L39:
+ 478 029a 459B      		sbis 40-32,5
+ 479 029c 00C0      		rjmp .L41
+ 480 029e 1123      		tst r17
+ 481 02a0 01F4      		brne .+2
+ 482 02a2 00C0      		rjmp .L45
+ 483               	.L41:
+ 484               	.LM84:
+ 485 02a4 1092 0000 		sts ZeitZumAdWandeln,__zero_reg__
+ 486               	/* epilogue start */
+ 487               	.LM85:
+ 488 02a8 FF91      		pop r31
+ 489 02aa EF91      		pop r30
+ 490 02ac BF91      		pop r27
+ 491 02ae AF91      		pop r26
+ 492 02b0 9F91      		pop r25
+ 493 02b2 8F91      		pop r24
+ 494 02b4 7F91      		pop r23
+ 495 02b6 6F91      		pop r22
+ 496 02b8 5F91      		pop r21
+ 497 02ba 4F91      		pop r20
+ 498 02bc 3F91      		pop r19
+ 499 02be 2F91      		pop r18
+ 500 02c0 1F91      		pop r17
+ 501               	.LVL1:
+ 502 02c2 0F91      		pop r16
+ 503 02c4 FF90      		pop r15
+ 504 02c6 EF90      		pop r14
+ 505 02c8 DF90      		pop r13
+ 506 02ca CF90      		pop r12
+ 507 02cc BF90      		pop r11
+ 508 02ce AF90      		pop r10
+ 509 02d0 9F90      		pop r9
+ 510 02d2 0F90      		pop r0
+ 511 02d4 0FBE      		out __SREG__,r0
+ 512 02d6 0F90      		pop r0
+ 513 02d8 1F90      		pop __zero_reg__
+ 514 02da 1895      		reti
+ 515               	.LFE4:
+ 517               	.global	Phase
+ 518               	.global	Phase
+ 519               		.section .bss
+ 522               	Phase:
+ 523 0000 00        		.skip 1,0
+ 524               	.global	ShadowTCCR1A
+ 525               	.global	ShadowTCCR1A
+ 528               	ShadowTCCR1A:
+ 529 0001 00        		.skip 1,0
+ 530               	.global	CompFreigabeTimer
+ 531               		.data
+ 534               	CompFreigabeTimer:
+ 535 0000 64        		.byte	100
+ 536               	.global	CompInterruptFreigabe
+ 537               	.global	CompInterruptFreigabe
+ 538               		.section .bss
+ 541               	CompInterruptFreigabe:
+ 542 0002 00        		.skip 1,0
+ 583               	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:00000000 BLMC.c
+C:\Users\ADMINI~1\AppData\Local\Temp/ccRcyO3F.s:2      *ABS*:0000003f __SREG__
+C:\Users\ADMINI~1\AppData\Local\Temp/ccRcyO3F.s:3      *ABS*:0000003e __SP_H__
+C:\Users\ADMINI~1\AppData\Local\Temp/ccRcyO3F.s:4      *ABS*:0000003d __SP_L__
+C:\Users\ADMINI~1\AppData\Local\Temp/ccRcyO3F.s:5      *ABS*:00000034 __CCP__
+C:\Users\ADMINI~1\AppData\Local\Temp/ccRcyO3F.s:6      *ABS*:00000000 __tmp_reg__
+C:\Users\ADMINI~1\AppData\Local\Temp/ccRcyO3F.s:7      *ABS*:00000001 __zero_reg__
+C:\Users\ADMINI~1\AppData\Local\Temp/ccRcyO3F.s:18     .text:00000000 __vector_4
+C:\Users\ADMINI~1\AppData\Local\Temp/ccRcyO3F.s:39     .text:00000014 Manuell
+C:\Users\ADMINI~1\AppData\Local\Temp/ccRcyO3F.s:522    .bss:00000000 Phase
+C:\Users\ADMINI~1\AppData\Local\Temp/ccRcyO3F.s:179    .text:000000da __vector_16
+C:\Users\ADMINI~1\AppData\Local\Temp/ccRcyO3F.s:528    .bss:00000001 ShadowTCCR1A
+C:\Users\ADMINI~1\AppData\Local\Temp/ccRcyO3F.s:534    .data:00000000 CompFreigabeTimer
+C:\Users\ADMINI~1\AppData\Local\Temp/ccRcyO3F.s:541    .bss:00000002 CompInterruptFreigabe
+
+UNDEFINED SYMBOLS
+ZeitZumAdWandeln
+AdConvert
+CntKommutierungen
+__do_copy_data
+__do_clear_bss
