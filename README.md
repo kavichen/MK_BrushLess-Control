@@ -12,3 +12,7 @@ MK Brushless Control
 * 安装 WinAVR 到 C盘根目录下
 * 将安装完毕的 WinAVR 中文件替换成 WinAVR-20060421-patch_MikroKopter（补丁）中文件
 * 
+
+TODO
+----
+* 尝试加入电压检测 - ADC7
