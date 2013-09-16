@@ -773,4 +773,4 @@ int main (void)
   } // while(1) - Hauptschleife
 }
 LOW_C_EIN; // Low C ein
-            ENABLE_SENSE_INT;  // ????? 使能比较器中断
+ENABLE_SENSE_INT;  // ????? 使能比较器中断

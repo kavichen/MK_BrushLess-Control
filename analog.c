@@ -3,7 +3,6 @@
 ############################################################################*/
 
 #include "main.h"
-
 //############################################################################
 //Init ADC
 void ADC_Init(void)
@@ -35,7 +34,7 @@ void AdConvert(void)
   Strom = (i + Strom * 7) / 8; 
   if (Strom_max < Strom) Strom_max = Strom;
   ADCSRA = 0x00;  
-  SFIOR = 0x08;  // Analog Comperator ein
+  SFIOR = 0x08;  // Analog Comperator ein  
 }
 
 
@@ -45,8 +44,7 @@ void AdConvert(void)
 unsigned int MessAD(unsigned char channel)
 //############################################################################
 {
- unsigned char sense;
-  sense = ADMUX;   // Sense-Kanal merken
+ unsigned char sense; sense = ADMUX;   // Sense-Kanal merken
   channel |= IntRef;
   ADMUX  =  channel;  // Kanal 6
   SFIOR  =  0x00;  // Analog Comperator aus
@@ -74,4 +72,5 @@ void FastADConvert(void)
   if (Strom_max < Strom) Strom_max = Strom;
   ADCSRA = 0x00;  
   SFIOR = 0x08;  // Analog Comperator ein
+  
 }

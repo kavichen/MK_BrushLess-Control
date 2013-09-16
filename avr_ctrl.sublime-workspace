@@ -1,0 +1,197 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"json",
+				"json_decode"
+			],
+			[
+				"wea",
+				"weather"
+			],
+			[
+				"els",
+				"else"
+			],
+			[
+				"str",
+				"str_key"
+			],
+			[
+				"conte",
+				"contentStr"
+			],
+			[
+				"th",
+				"this"
+			],
+			[
+				"li",
+				"li	Tag"
+			]
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 392.0,
+		"selected_items":
+		[
+			[
+				"",
+				"Snippet: Arduino setup"
+			]
+		],
+		"width": 404.0
+	},
+	"console":
+	{
+		"height": 0.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/Users/kavi/百度云同步盘/MK/analog.c",
+		"/Users/kavi/百度云同步盘/Developer/wx/weather_cityId.php",
+		"/Users/kavi/百度云同步盘/Developer/wx/index.php",
+		"/Users/kavi/Desktop/index.php",
+		"/Users/kavi/Desktop/wx_sample.php",
+		"/Users/kavi/Desktop/dead_zone.php",
+		"/Users/kavi/Desktop/xu.php",
+		"/Users/kavi/Desktop/gina_diary.php",
+		"/Users/kavi/百度云同步盘/Developer/MK/V0.41-Hexa/main.c",
+		"/Applications/XAMPP/xamppfiles/htdocs/www/blog/wp-content/themes/alliswell-min-theme-c53cba0/functions.php",
+		"/Users/kavi/Library/Application Support/Sublime Text 3/Packages/Arduino/Arduino-Upload-Compile.sublime-build",
+		"/Users/kavi/Documents/Arduino/esc_test/esc_test.ino",
+		"/Applications/XAMPP/xamppfiles/htdocs/chenqiwei/index.php"
+	],
+	"find":
+	{
+		"height": 35.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"高雄",
+			"postStr"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 23.0
+	},
+	"input":
+	{
+		"height": 0.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"project": "avr_ctrl.sublime-project",
+	"replace":
+	{
+		"height": 42.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 150.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
