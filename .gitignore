@@ -21,3 +21,5 @@
 *.swp
 *.swo
 .README.md.swp
+
+.DS_Store
