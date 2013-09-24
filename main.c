@@ -58,27 +58,27 @@
 
 unsigned int  PWM = 0; 
 unsigned int  Strom = 0,RuheStrom; //ca. in 0,1A
-unsigned char Strom_max = 0;
-unsigned char Mittelstrom = 0; 
-unsigned int  Drehzahl = 0;  // in 100UPM  60 = 6000
-unsigned int  KommutierDelay = 10;
-unsigned int  I2C_Timeout = 0;
-unsigned int SIO_Timeout = 0;
+unsigned char Strom_max = 0; // 最大电流
+unsigned char Mittelstrom = 0; // 平均电流
+unsigned int  Drehzahl = 0;  // in 100UPM  60 = 6000 转速
+unsigned int  KommutierDelay = 10; // 换向器延时,未使用
+unsigned int  I2C_Timeout = 0; // I2C是否最近收到数据
+unsigned int SIO_Timeout = 0; // 串口是否最近收到数据
 unsigned int  SollDrehzahl = 0;
 unsigned int  IstDrehzahl = 0;
 unsigned int  DrehZahlTabelle[256];//vorberechnete Werte zur Drehzahlerfassung
-unsigned char ZeitFuerBerechnungen = 1;
-unsigned char MotorAnwerfen = 0;
-unsigned char MotorGestoppt = 1;
-unsigned char MaxPWM = MAX_PWM;
-unsigned int  CntKommutierungen = 0;
-unsigned int  SIO_Drehzahl = 0;
-unsigned char ZeitZumAdWandeln = 1;
-unsigned char MotorAdresse = 1;
-unsigned char PPM_Betrieb = 1;
-unsigned char HwVersion;
-unsigned char IntRef = 0;
-unsigned int MinUpmPulse;
+unsigned char ZeitFuerBerechnungen = 1; // 估计时间，指示一些操作的优先级
+unsigned char MotorAnwerfen = 0; // 马达启动，指示马达是否处于启动状态
+unsigned char MotorGestoppt = 1; // 马达停止，指示马达是否处于停止状态
+unsigned char MaxPWM = MAX_PWM; // 最大 PWM 值
+unsigned int  CntKommutierungen = 0; // 累计换相次数
+unsigned int  SIO_Drehzahl = 0; // 向串口输出当前的转速
+unsigned char ZeitZumAdWandeln = 1; // 指示电流测量标志
+unsigned char MotorAdresse = 1; // 本电调地址
+unsigned char PPM_Betrieb = 1; // 指示当前是否为 PPM 控制
+unsigned char HwVersion; // 指示电路板版本号
+unsigned char IntRef = 0; // ADC 参考电压寄存器掩码
+unsigned int MinUpmPulse; // 最小 Rpm 转速脉冲，作延时定时变量用
 //############################################################################
 //
 void SetPWM(void)
@@ -464,7 +464,7 @@ void MotorTon(void) // 自检流程分析
   //++++++++++++++++++++++++++++++++++++
 
   //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-  sei();//Globale Interrupts Einschalten
+  sei(); // Globale Interrupts Einschalten
   //    Delay_ms(250 * MotorAdresse);    
   /*
      LOW_A_EIN; // Low B ein
@@ -596,7 +596,7 @@ int main (void)
   // UART_Init();  // war doppelt
   PWM_Init();	
 
-  InitIC2_Slave(0x50);			    
+  InitIC2_Slave(0x50);
   InitPPM();
 
   Blink             = SetDelay(101);    
@@ -681,10 +681,10 @@ int main (void)
         else DatenUebertragung();
       }
       // Berechnen des Mittleren Stroms zur (langsamen) Strombegrenzung
-      if(CheckDelay(MittelstromTimer))   
+      if(CheckDelay(MittelstromTimer))    
       {
         MittelstromTimer = SetDelay(50); // alle 50ms
-        if(Mittelstrom <  Strom) Mittelstrom++;// Mittelwert des Stroms bilden
+        if(Mittelstrom <  Strom) Mittelstrom++;// Mittelstrom 平缓化
         else if(Mittelstrom >  Strom) Mittelstrom--;
         if(Strom > MAX_STROM) MaxPWM -= MaxPWM / 32;               
         if((Mittelstrom > LIMIT_STROM))// Strom am Limit?
@@ -768,4 +768,3 @@ int main (void)
     } // ZeitFuerBerechnungen
   } // while(1) - Hauptschleife
 }
-
