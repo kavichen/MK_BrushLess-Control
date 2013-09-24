@@ -19,3 +19,5 @@
 
 # swp file
 *.swp
+*.swo
+.README.md.swp
