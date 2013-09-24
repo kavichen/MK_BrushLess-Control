@@ -22,4 +22,5 @@
 *.swo
 .README.md.swp
 
+# OSX file
 .DS_Store
